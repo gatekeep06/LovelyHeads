@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "lovelyheads",
+  "version": "${version}",
+  "name": "LovelyHeads",
+  "description": "A mod that improves some things related to players' heads and adds new functionality",
+  "authors": [
+    "gatekeep"
+  ],
+  "contact": {
+    "website": "-",
+    "repo": "https://github.com/gatekeep06/LovelyHeads"
+  },
+  "license": "MIT",
+  "icon": "assets/lovelyheads/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.metacontent.lovelyheads.client.LovelyHeadsClient"
+    ],
+    "main": [
+      "com.metacontent.lovelyheads.LovelyHeads"
+    ]
+  },
+  "mixins": [
+    "lovelyheads.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

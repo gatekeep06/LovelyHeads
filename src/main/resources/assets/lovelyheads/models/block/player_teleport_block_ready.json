@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "lovelyheads:block/player_teleport_block_down",
+    "east": "lovelyheads:block/player_teleport_block_front_ready",
+    "north": "lovelyheads:block/player_teleport_block_front_ready",
+    "particle": "lovelyheads:block/player_teleport_block_front_ready",
+    "south": "lovelyheads:block/player_teleport_block_front_ready",
+    "up": "lovelyheads:block/player_teleport_block_up_ready",
+    "west": "lovelyheads:block/player_teleport_block_front_ready"
+  }
+}

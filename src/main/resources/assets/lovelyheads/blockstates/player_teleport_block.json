@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "is_ready=false": {"model": "lovelyheads:block/player_teleport_block"},
+    "is_ready=true": {"model": "lovelyheads:block/player_teleport_block_ready"}
+  }
+}
