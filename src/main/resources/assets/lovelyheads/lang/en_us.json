@@ -1,8 +1,10 @@
 {
   "block.lovelyheads.player_teleport_block": "Player Teleport",
+  "block.lovelyheads.head_pedestal_block": "Head Pedestal",
+  "block.lovelyheads.polymorph_head_block": "Polymorph Head",
   "block.lovelyheads.player_teleport_block.teleport_message": "Teleported to %s",
   "block.lovelyheads.player_teleport_block.cooldown_message": "Cooldown: %s",
   "item.lovelyheads.player_teleport_block.ready_tooltip": "Ready",
   "item.lovelyheads.player_teleport_block.cooldown_tooltip": "Cooldown: %s",
-  "block.lovelyheads.head_pedestal_block": "Head Pedestal"
+  "item.lovelyheads.polymorph_head_block.tooltip": "When placed, takes a placer's head shape"
 }
