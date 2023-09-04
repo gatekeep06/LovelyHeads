@@ -4,11 +4,10 @@ import com.metacontent.lovelyheads.LovelyHeads;
 import com.metacontent.lovelyheads.block.LovelyBlocks;
 import com.metacontent.lovelyheads.block.custom.PlayerTeleportBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -67,11 +66,20 @@ public class LovelyItems {
     public static final Item HEAD_PEDESTAL_BLOCK = registerItem("head_pedestal_block",
             new BlockItem(LovelyBlocks.HEAD_PEDESTAL_BLOCK, new FabricItemSettings()));
 
+    public static final Item ITEM_TRANSMITTER_BLOCK = registerItem("item_transmitter_block",
+            new BlockItem(LovelyBlocks.ITEM_TRANSMITTER_BLOCK, new FabricItemSettings()));
+
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(LovelyHeads.ID, name), item);
     }
 
     public static void registerLovelyItems() {
         LovelyHeads.LOGGER.debug("Registering items for " + LovelyHeads.ID);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(content -> {
+            content.addAfter(Items.LODESTONE, PLAYER_TELEPORT_BLOCK);
+            content.addAfter(PLAYER_TELEPORT_BLOCK, ITEM_TRANSMITTER_BLOCK);
+            content.addAfter(ITEM_TRANSMITTER_BLOCK,HEAD_PEDESTAL_BLOCK);
+            content.addAfter(Items.PLAYER_HEAD, POLYMORPH_HEAD_ITEM);
+        });
     }
 }

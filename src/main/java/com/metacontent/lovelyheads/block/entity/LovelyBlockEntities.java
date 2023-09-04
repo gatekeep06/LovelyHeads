@@ -19,6 +19,11 @@ public class LovelyBlockEntities {
             FabricBlockEntityTypeBuilder.create(HeadPedestalBlockEntity::new, LovelyBlocks.HEAD_PEDESTAL_BLOCK).build()
     );
 
+    public static final BlockEntityType<ItemTransmitterBlockEntity> ITEM_TRANSMITTER_BLOCK_ENTITY = Registry.register(
+            Registries.BLOCK_ENTITY_TYPE, new Identifier(LovelyHeads.ID, "item_transmitter_block_entity"),
+            FabricBlockEntityTypeBuilder.create(ItemTransmitterBlockEntity::new, LovelyBlocks.ITEM_TRANSMITTER_BLOCK).build()
+    );
+
     public static void registerLovelyBlockEntities() {
         LovelyHeads.LOGGER.debug("Registering block entity types for " + LovelyHeads.ID);
     }

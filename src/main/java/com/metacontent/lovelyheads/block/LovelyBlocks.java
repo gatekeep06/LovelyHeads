@@ -2,6 +2,7 @@ package com.metacontent.lovelyheads.block;
 
 import com.metacontent.lovelyheads.LovelyHeads;
 import com.metacontent.lovelyheads.block.custom.HeadPedestalBlock;
+import com.metacontent.lovelyheads.block.custom.ItemTransmitterBlock;
 import com.metacontent.lovelyheads.block.custom.PlayerTeleportBlock;
 import com.metacontent.lovelyheads.block.custom.PolymorphHeadBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -20,6 +21,9 @@ public class LovelyBlocks {
 
     public static final Block POLYMORPH_HEAD_BLOCK = registerBlock("polymorph_head_block",
             new PolymorphHeadBlock(FabricBlockSettings.copyOf(Blocks.SKELETON_SKULL)));
+
+    public static final Block ITEM_TRANSMITTER_BLOCK = registerBlock("item_transmitter_block",
+            new ItemTransmitterBlock(FabricBlockSettings.copyOf(Blocks.STONE)));
 
     private static Block registerBlock(String name, Block block) {
         return Registry.register(Registries.BLOCK, new Identifier(LovelyHeads.ID, name), block);
