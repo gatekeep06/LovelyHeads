@@ -1,37 +1,36 @@
 package com.metacontent.lovelyheads.screen;
 
-import com.metacontent.lovelyheads.block.custom.ItemTransmitterBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ArrayPropertyDelegate;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.Text;
 
 public class ItemTransmitterScreenHandler extends ScreenHandler {
     public final Inventory inventory;
-    public int timer;
+    private final PropertyDelegate propertyDelegate;
 
-    public Text getTimer() {
-        int duration = ItemTransmitterBlock.TRANSMISSION_TIME - this.timer;
-        int minutes = duration / 1200;
-        int seconds = duration / 20 - minutes * 60;
-        return Text.translatable("block.lovelyheads.item_transmitter_block.title", minutes + ":" + (seconds / 10) + (seconds % 10));
+    public int getSyncedInt() {
+        return propertyDelegate.get(0);
     }
 
     public ItemTransmitterScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new SimpleInventory(9), ItemStack.EMPTY, 0);
+        this(syncId, playerInventory, new SimpleInventory(9), ItemStack.EMPTY, new ArrayPropertyDelegate(1));
     }
 
-    public ItemTransmitterScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, ItemStack head, int timer) {
+    public ItemTransmitterScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, ItemStack head, PropertyDelegate propertyDelegate) {
         super(LovelyScreens.ITEM_TRANSMITTER_SCREEN_HANDLER, syncId);
         checkSize(inventory, 9);
         this.inventory = inventory;
-        this.timer = timer;
+        this.propertyDelegate = propertyDelegate;
 
         inventory.onOpen(playerInventory.player);
+
+        this.addProperties(propertyDelegate);
 
         Inventory headSlot = new SimpleInventory(1);
         headSlot.setStack(0, head);

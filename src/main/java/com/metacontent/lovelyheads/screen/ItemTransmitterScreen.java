@@ -1,27 +1,20 @@
 package com.metacontent.lovelyheads.screen;
 
 import com.metacontent.lovelyheads.LovelyHeads;
-import com.metacontent.lovelyheads.block.entity.PlayerTeleportBlockEntity;
+import com.metacontent.lovelyheads.block.custom.ItemTransmitterBlock;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import org.joml.Matrix4f;
 
 public class ItemTransmitterScreen extends HandledScreen<ItemTransmitterScreenHandler> {
     private static final Identifier TEXTURE = new Identifier(LovelyHeads.ID, "textures/gui/item_transmitter_gui.png");
 
     public ItemTransmitterScreen(ItemTransmitterScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
-    }
-
-    @Override
-    protected void handledScreenTick() {
-
     }
 
     @Override
@@ -39,6 +32,10 @@ public class ItemTransmitterScreen extends HandledScreen<ItemTransmitterScreenHa
         renderBackground(context);
         super.render(context, mouseX, mouseY, delta);
         drawMouseoverTooltip(context, mouseX, mouseY);
-        context.drawText(textRenderer, handler.getTimer(), 0, 0, 0xffffff, false);
+        int duration = ItemTransmitterBlock.TRANSMISSION_TIME - handler.getSyncedInt();
+        int minutes = duration / 1200;
+        int seconds = duration / 20 - minutes * 60;
+        context.drawText(textRenderer, Text.translatable("block.lovelyheads.item_transmitter_block.transmission_info", minutes + ":" + (seconds / 10) + (seconds % 10)),
+                width / 2 - 80, height / 2 - 44, 0x3f3f3f, false);
     }
 }

@@ -11,6 +11,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -27,6 +28,22 @@ import java.util.function.Predicate;
 public class ItemTransmitterBlockEntity extends BlockEntity implements ImplementedInventory, NamedScreenHandlerFactory {
     public int timer = 0;
     public ItemStack headItemStack = ItemStack.EMPTY;
+    private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
+        @Override
+        public int get(int index) {
+            return timer;
+        }
+
+        @Override
+        public void set(int index, int value) {
+            timer = value;
+        }
+
+        @Override
+        public int size() {
+            return 1;
+        }
+    };
 
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
 
@@ -35,16 +52,17 @@ public class ItemTransmitterBlockEntity extends BlockEntity implements Implement
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, ItemTransmitterBlockEntity be) {
-        if (be.timer < ItemTransmitterBlock.TRANSMISSION_TIME && !be.isEmpty()) {
+        if (be.timer < ItemTransmitterBlock.TRANSMISSION_TIME && !be.isEmpty() && !world.isClient()) {
             be.timer++;
             if (be.timer >= ItemTransmitterBlock.TRANSMISSION_TIME) {
-                System.out.println("done but...");
                 be.transmitItems();
                 be.timer = 0;
             }
+            be.markDirty();
         }
         else if (be.timer != 0) {
             be.timer = 0;
+            be.markDirty();
         }
     }
 
@@ -60,9 +78,20 @@ public class ItemTransmitterBlockEntity extends BlockEntity implements Implement
             if (!list.isEmpty()) {
                 ServerPlayerEntity targetEntity = list.get(0);
                 for (ItemStack itemStack : this.inventory) {
-                    targetEntity.giveItemStack(itemStack);
+                    if (targetEntity.getInventory().getEmptySlot() != -1) {
+                        targetEntity.giveItemStack(itemStack);
+                    }
+                    else if (targetEntity.getInventory().containsAny((stack) -> stack.getItem() == itemStack.getItem()
+                            && stack.getCount() + itemStack.getCount() <= stack.getItem().getMaxCount())) {
+                        targetEntity.giveItemStack(itemStack);
+                    }
+                    else {
+                        targetEntity.dropItem(itemStack, false, false);
+                    }
                     inventory.set(inventory.indexOf(itemStack), ItemStack.EMPTY);
                 }
+                targetEntity.sendMessage(Text.translatable("block.lovelyheads.item_transmitter_block.transmission_message"));
+                markDirty();
             }
         }
     }
@@ -96,7 +125,7 @@ public class ItemTransmitterBlockEntity extends BlockEntity implements Implement
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         this.headItemStack = getPedestalEntity() != null ? getPedestalEntity().getHeadItemStack() : ItemStack.EMPTY;
-        return new ItemTransmitterScreenHandler(syncId, playerInventory, this, this.headItemStack, timer);
+        return new ItemTransmitterScreenHandler(syncId, playerInventory, this, this.headItemStack, propertyDelegate);
     }
 
     @Override
