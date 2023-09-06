@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "lovelyheads:block/head_constructor_block_down",
+    "east": "lovelyheads:block/head_constructor_block_front",
+    "north": "lovelyheads:block/head_constructor_block_front",
+    "particle": "lovelyheads:block/head_constructor_block_front",
+    "south": "lovelyheads:block/head_constructor_block_front",
+    "up": "lovelyheads:block/head_constructor_block_up",
+    "west": "lovelyheads:block/head_constructor_block_front"
+  }
+}

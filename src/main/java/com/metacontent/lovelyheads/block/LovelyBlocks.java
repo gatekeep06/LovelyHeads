@@ -1,10 +1,7 @@
 package com.metacontent.lovelyheads.block;
 
 import com.metacontent.lovelyheads.LovelyHeads;
-import com.metacontent.lovelyheads.block.custom.HeadPedestalBlock;
-import com.metacontent.lovelyheads.block.custom.ItemTransmitterBlock;
-import com.metacontent.lovelyheads.block.custom.PlayerTeleportBlock;
-import com.metacontent.lovelyheads.block.custom.PolymorphHeadBlock;
+import com.metacontent.lovelyheads.block.custom.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -24,6 +21,9 @@ public class LovelyBlocks {
 
     public static final Block ITEM_TRANSMITTER_BLOCK = registerBlock("item_transmitter_block",
             new ItemTransmitterBlock(FabricBlockSettings.copyOf(Blocks.STONE)));
+
+    public static final Block HEAD_CONSTRUCTOR_BLOCK = registerBlock("head_constructor_block",
+            new HeadConstructorBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD)));
 
     private static Block registerBlock(String name, Block block) {
         return Registry.register(Registries.BLOCK, new Identifier(LovelyHeads.ID, name), block);

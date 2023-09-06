@@ -24,6 +24,11 @@ public class LovelyBlockEntities {
             FabricBlockEntityTypeBuilder.create(ItemTransmitterBlockEntity::new, LovelyBlocks.ITEM_TRANSMITTER_BLOCK).build()
     );
 
+    public static final BlockEntityType<HeadConstructorBlockEntity> HEAD_CONSTRUCTOR_BLOCK_ENTITY = Registry.register(
+            Registries.BLOCK_ENTITY_TYPE, new Identifier(LovelyHeads.ID, "head_constructor_block_entity"),
+            FabricBlockEntityTypeBuilder.create(HeadConstructorBlockEntity::new, LovelyBlocks.HEAD_CONSTRUCTOR_BLOCK).build()
+    );
+
     public static void registerLovelyBlockEntities() {
         LovelyHeads.LOGGER.debug("Registering block entity types for " + LovelyHeads.ID);
     }
