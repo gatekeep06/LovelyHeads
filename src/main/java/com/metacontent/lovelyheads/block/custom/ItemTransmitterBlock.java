@@ -51,7 +51,9 @@ public class ItemTransmitterBlock extends BlockWithEntity {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof ItemTransmitterBlockEntity itemTransmitterBlockEntity) {
                 ItemScatterer.spawn(world, pos, itemTransmitterBlockEntity);
+                world.updateComparators(pos, this);
             }
+            super.onStateReplaced(state, world, pos, newState, moved);
         }
     }
 

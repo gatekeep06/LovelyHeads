@@ -1,5 +1,6 @@
 package com.metacontent.lovelyheads.screen;
 
+import com.metacontent.lovelyheads.recipe.HeadConstructorRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -8,10 +9,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class HeadConstructorScreenHandler extends ScreenHandler {
     public final Inventory inventory;
+    private boolean decrementExtraInput;
+    private final World world;
 
     public HeadConstructorScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, new SimpleInventory(3));
@@ -21,12 +27,41 @@ public class HeadConstructorScreenHandler extends ScreenHandler {
         super(LovelyScreens.HEAD_CONSTRUCTOR_SCREEN_HANDLER, syncId);
         checkSize(inventory, 3);
         this.inventory = inventory;
+        this.world = playerInventory.player.getWorld();
 
         inventory.onOpen(playerInventory.player);
+        this.onContentChanged(inventory);
 
-        this.addSlot(new Slot(inventory, 0, 33, 41));
-        this.addSlot(new Slot(inventory, 1, 80, 20));
+        this.addSlot(new Slot(inventory, 0, 33, 41) {
+            @Override
+            public void markDirty() {
+                HeadConstructorScreenHandler.this.onContentChanged(HeadConstructorScreenHandler.this.inventory);
+                super.markDirty();
+            }
+        });
+        this.addSlot(new Slot(inventory, 1, 80, 20) {
+            @Override
+            public void markDirty() {
+                HeadConstructorScreenHandler.this.onContentChanged(HeadConstructorScreenHandler.this.inventory);
+                super.markDirty();
+            }
+        });
         this.addSlot(new Slot(inventory, 2, 127, 41) {
+            @Override
+            public void markDirty() {
+                HeadConstructorScreenHandler.this.onContentChanged(HeadConstructorScreenHandler.this.inventory);
+                super.markDirty();
+            }
+
+            @Override
+            public void onTakeItem(PlayerEntity player, ItemStack stack) {
+                HeadConstructorScreenHandler.this.slots.get(0).takeStack(1);
+                if (HeadConstructorScreenHandler.this.decrementExtraInput) {
+                    HeadConstructorScreenHandler.this.slots.get(1).takeStack(1);
+                }
+                super.onTakeItem(player, stack);
+            }
+
             @Override
             public boolean canInsert(ItemStack stack) {
                 return false;
@@ -43,9 +78,35 @@ public class HeadConstructorScreenHandler extends ScreenHandler {
     }
 
     @Override
+    public void onContentChanged(Inventory inventory) {
+        ItemStack base = inventory.getStack(0);
+        ItemStack extra = inventory.getStack(1);
+        ItemStack result = inventory.getStack(2);
+        if (result.isEmpty() || !base.isEmpty() && !extra.isEmpty()) {
+            if (!base.isEmpty() && !extra.isEmpty()) {
+                this.updateResult();
+            }
+        }
+        else {
+            this.inventory.removeStack(2);
+        }
+    }
+
+    private void updateResult() {
+        if (!world.isClient()) {
+            Optional<HeadConstructorRecipe> match = world.getRecipeManager().getFirstMatch(HeadConstructorRecipe.Type.INSTANCE,
+                    this.inventory, this.world);
+            if (match.isPresent()) {
+                this.inventory.setStack(2, match.get().craft(this.inventory, world.getRegistryManager()));
+                this.decrementExtraInput = match.get().isDecrementExtraInput();
+            }
+        }
+    }
+
+    @Override
     public ItemStack quickMove(PlayerEntity player, int invSlot) {
         ItemStack newStack = ItemStack.EMPTY;
-        Slot slot = this.slots.get(invSlot);
+        /*Slot slot = this.slots.get(invSlot);
         if (slot != null && slot.hasStack()) {
             ItemStack originalStack = slot.getStack();
             newStack = originalStack.copy();
@@ -62,7 +123,7 @@ public class HeadConstructorScreenHandler extends ScreenHandler {
             } else {
                 slot.markDirty();
             }
-        }
+        }*/
 
         return newStack;
     }
@@ -70,5 +131,11 @@ public class HeadConstructorScreenHandler extends ScreenHandler {
     @Override
     public boolean canUse(PlayerEntity player) {
         return this.inventory.canPlayerUse(player);
+    }
+
+    @Override
+    public void onClosed(PlayerEntity player) {
+        super.onClosed(player);
+        this.inventory.removeStack(2);
     }
 }

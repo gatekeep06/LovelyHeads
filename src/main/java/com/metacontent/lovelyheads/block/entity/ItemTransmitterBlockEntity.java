@@ -78,16 +78,7 @@ public class ItemTransmitterBlockEntity extends BlockEntity implements Implement
             if (!list.isEmpty()) {
                 ServerPlayerEntity targetEntity = list.get(0);
                 for (ItemStack itemStack : this.inventory) {
-                    if (targetEntity.getInventory().getEmptySlot() != -1) {
-                        targetEntity.giveItemStack(itemStack);
-                    }
-                    else if (targetEntity.getInventory().containsAny((stack) -> stack.getItem() == itemStack.getItem()
-                            && stack.getCount() + itemStack.getCount() <= stack.getItem().getMaxCount())) {
-                        targetEntity.giveItemStack(itemStack);
-                    }
-                    else {
-                        targetEntity.dropItem(itemStack, false, false);
-                    }
+                    targetEntity.getInventory().offerOrDrop(itemStack);
                     inventory.set(inventory.indexOf(itemStack), ItemStack.EMPTY);
                 }
                 targetEntity.sendMessage(Text.translatable("block.lovelyheads.item_transmitter_block.transmission_message"));

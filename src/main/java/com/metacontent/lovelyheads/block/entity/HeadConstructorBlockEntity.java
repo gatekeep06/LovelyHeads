@@ -1,5 +1,6 @@
 package com.metacontent.lovelyheads.block.entity;
 
+import com.metacontent.lovelyheads.recipe.HeadConstructorRecipe;
 import com.metacontent.lovelyheads.screen.HeadConstructorScreenHandler;
 import com.metacontent.lovelyheads.util.ImplementedInventory;
 import net.minecraft.block.BlockState;
@@ -9,12 +10,15 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class HeadConstructorBlockEntity extends BlockEntity implements ImplementedInventory, NamedScreenHandlerFactory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);

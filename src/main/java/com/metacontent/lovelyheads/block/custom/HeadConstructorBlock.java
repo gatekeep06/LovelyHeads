@@ -48,9 +48,11 @@ public class HeadConstructorBlock extends BlockWithEntity {
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof ItemTransmitterBlockEntity itemTransmitterBlockEntity) {
-                ItemScatterer.spawn(world, pos, itemTransmitterBlockEntity);
+            if (blockEntity instanceof HeadConstructorBlockEntity headConstructorBlockEntity) {
+                ItemScatterer.spawn(world, pos, headConstructorBlockEntity);
+                world.updateComparators(pos, this);
             }
+            super.onStateReplaced(state, world, pos, newState, moved);
         }
     }
 
