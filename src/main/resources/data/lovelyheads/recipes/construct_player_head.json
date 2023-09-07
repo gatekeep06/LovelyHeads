@@ -1,0 +1,11 @@
+{
+  "type": "lovelyheads:head_constructor_recipe",
+  "baseInput": {
+    "item": "minecraft:skeleton_skull"
+  },
+  "extraInput": {
+    "item": "lovelyheads:head_scheme_item"
+  },
+  "decrementExtraInput": false,
+  "outputItem": "minecraft:player_head"
+}

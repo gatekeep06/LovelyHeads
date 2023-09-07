@@ -1,11 +1,14 @@
 package com.metacontent.lovelyheads.screen;
 
+import com.metacontent.lovelyheads.item.LovelyItems;
 import com.metacontent.lovelyheads.recipe.HeadConstructorRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
@@ -30,7 +33,6 @@ public class HeadConstructorScreenHandler extends ScreenHandler {
         this.world = playerInventory.player.getWorld();
 
         inventory.onOpen(playerInventory.player);
-        this.onContentChanged(inventory);
 
         this.addSlot(new Slot(inventory, 0, 33, 41) {
             @Override
@@ -75,6 +77,8 @@ public class HeadConstructorScreenHandler extends ScreenHandler {
         for (int i = 0; i < 9; i++) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 144));
         }
+
+        this.onContentChanged(inventory);
     }
 
     @Override
@@ -97,7 +101,27 @@ public class HeadConstructorScreenHandler extends ScreenHandler {
             Optional<HeadConstructorRecipe> match = world.getRecipeManager().getFirstMatch(HeadConstructorRecipe.Type.INSTANCE,
                     this.inventory, this.world);
             if (match.isPresent()) {
-                this.inventory.setStack(2, match.get().craft(this.inventory, world.getRegistryManager()));
+                ItemStack result = match.get().craft(this.inventory, world.getRegistryManager());
+                if (result.getItem() == LovelyItems.HEAD_SCHEME_ITEM) {
+                    if (this.slots.get(0).getStack().hasNbt()) {
+                        //String owner = this.slots.get(0).getStack().getNbt().getString("SkullOwner");
+                        NbtCompound nbt = this.slots.get(0).getStack().getNbt();
+                        //nbt.putString("SkullOwner", owner);
+                        result.setNbt(nbt);
+                    }
+                    else {
+                        result = ItemStack.EMPTY;
+                    }
+                }
+                else if (result.getItem() == Items.PLAYER_HEAD) {
+                    if (this.slots.get(1).getStack().hasNbt()) {
+                        //String owner = this.slots.get(1).getStack().getNbt().getString("SkullOwner");
+                        NbtCompound nbt = this.slots.get(1).getStack().getNbt();
+                        //nbt.putString("SkullOwner", owner);
+                        result.setNbt(nbt);
+                    }
+                }
+                this.inventory.setStack(2, result);
                 this.decrementExtraInput = match.get().isDecrementExtraInput();
             }
         }

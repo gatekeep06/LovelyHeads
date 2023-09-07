@@ -3,17 +3,20 @@ package com.metacontent.lovelyheads.item;
 import com.metacontent.lovelyheads.LovelyHeads;
 import com.metacontent.lovelyheads.block.LovelyBlocks;
 import com.metacontent.lovelyheads.block.custom.PlayerTeleportBlock;
+import com.mojang.authlib.GameProfile;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtHelper;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
+import net.minecraft.util.Util;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -71,6 +74,24 @@ public class LovelyItems {
 
     public static final Item HEAD_CONSTRUCTOR_BLOCK = registerItem("head_constructor_block",
             new BlockItem(LovelyBlocks.HEAD_CONSTRUCTOR_BLOCK, new FabricItemSettings()));
+
+    public static final Item HEAD_SCHEME_ITEM = registerItem("head_scheme_item",
+            new Item(new FabricItemSettings().maxCount(1)) {
+                @Override
+                public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+                    if (stack.hasNbt()) {
+                        String owner = "";
+                        NbtCompound nbt = stack.getNbt();
+                        if (nbt.contains("SkullOwner", 10)) {
+                            owner = NbtHelper.toGameProfile(nbt.getCompound("SkullOwner")).getName();
+                        }
+                        else if (nbt.contains("SkullOwner", 8) && !Util.isBlank(nbt.getString("SkullOwner"))) {
+                            owner = nbt.getString("SkullOwner");
+                        }
+                        tooltip.add(Text.literal(owner));
+                    }
+                }
+            });
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(LovelyHeads.ID, name), item);

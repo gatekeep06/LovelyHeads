@@ -1,0 +1,11 @@
+{
+  "type": "lovelyheads:head_constructor_recipe",
+  "baseInput": {
+    "item": "minecraft:player_head"
+  },
+  "extraInput": {
+    "item": "minecraft:paper"
+  },
+  "decrementExtraInput": true,
+  "outputItem": "lovelyheads:head_scheme_item"
+}
