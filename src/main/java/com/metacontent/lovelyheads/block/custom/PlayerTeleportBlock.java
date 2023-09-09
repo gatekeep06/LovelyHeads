@@ -58,7 +58,7 @@ public class PlayerTeleportBlock extends BlockWithEntity {
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (world.getBlockEntity(pos) instanceof PlayerTeleportBlockEntity blockEntity) {
-            if (!world.isClient() /*&& !player.isCreative()*/) {
+            if (!world.isClient() && !player.isCreative()) {
                 ItemStack itemStack = new ItemStack(this);
                 blockEntity.setStackNbt(itemStack);
                 ItemEntity itemEntity = new ItemEntity(world, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, itemStack);

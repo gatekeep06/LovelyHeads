@@ -13,6 +13,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
@@ -88,10 +89,16 @@ public class LovelyItems {
                         else if (nbt.contains("SkullOwner", 8) && !Util.isBlank(nbt.getString("SkullOwner"))) {
                             owner = nbt.getString("SkullOwner");
                         }
-                        tooltip.add(Text.literal(owner));
+                        tooltip.add(Text.literal(owner).setStyle(Style.EMPTY.withItalic(true)));
                     }
                 }
             });
+
+    public static final Item HEAD_BASE_ITEM = registerItem("head_base_item",
+            new Item(new FabricItemSettings()));
+
+    public static final Item TROPHY_PLAQUE_BLOCK = registerItem("trophy_plaque_block",
+            new BlockItem(LovelyBlocks.TROPHY_PLAQUE_BLOCK, new FabricItemSettings()));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(LovelyHeads.ID, name), item);
@@ -104,7 +111,11 @@ public class LovelyItems {
             content.addAfter(PLAYER_TELEPORT_BLOCK, ITEM_TRANSMITTER_BLOCK);
             content.addAfter(ITEM_TRANSMITTER_BLOCK,HEAD_PEDESTAL_BLOCK);
             content.addAfter(HEAD_PEDESTAL_BLOCK, HEAD_CONSTRUCTOR_BLOCK);
+            content.addAfter(HEAD_CONSTRUCTOR_BLOCK, TROPHY_PLAQUE_BLOCK);
             content.addAfter(Items.PLAYER_HEAD, POLYMORPH_HEAD_ITEM);
+        });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(content -> {
+            content.add(HEAD_BASE_ITEM);
         });
     }
 }

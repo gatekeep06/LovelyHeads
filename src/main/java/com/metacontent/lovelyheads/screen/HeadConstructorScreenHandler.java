@@ -104,9 +104,7 @@ public class HeadConstructorScreenHandler extends ScreenHandler {
                 ItemStack result = match.get().craft(this.inventory, world.getRegistryManager());
                 if (result.getItem() == LovelyItems.HEAD_SCHEME_ITEM) {
                     if (this.slots.get(0).getStack().hasNbt()) {
-                        //String owner = this.slots.get(0).getStack().getNbt().getString("SkullOwner");
                         NbtCompound nbt = this.slots.get(0).getStack().getNbt();
-                        //nbt.putString("SkullOwner", owner);
                         result.setNbt(nbt);
                     }
                     else {
@@ -115,9 +113,7 @@ public class HeadConstructorScreenHandler extends ScreenHandler {
                 }
                 else if (result.getItem() == Items.PLAYER_HEAD) {
                     if (this.slots.get(1).getStack().hasNbt()) {
-                        //String owner = this.slots.get(1).getStack().getNbt().getString("SkullOwner");
                         NbtCompound nbt = this.slots.get(1).getStack().getNbt();
-                        //nbt.putString("SkullOwner", owner);
                         result.setNbt(nbt);
                     }
                 }

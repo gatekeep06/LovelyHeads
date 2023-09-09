@@ -1,7 +1,7 @@
 {
   "type": "lovelyheads:head_constructor_recipe",
   "baseInput": {
-    "item": "lovelyheads:head_base_item"
+    "item": "minecraft:player_head"
   },
   "extraInput": {
     "item": "lovelyheads:head_scheme_item"

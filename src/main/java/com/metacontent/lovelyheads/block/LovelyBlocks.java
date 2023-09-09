@@ -25,6 +25,9 @@ public class LovelyBlocks {
     public static final Block HEAD_CONSTRUCTOR_BLOCK = registerBlock("head_constructor_block",
             new HeadConstructorBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD)));
 
+    public static final Block TROPHY_PLAQUE_BLOCK = registerBlock("trophy_plaque_block",
+            new TrophyPlaqueBlock(FabricBlockSettings.copy(Blocks.OAK_WOOD).nonOpaque()));
+
     private static Block registerBlock(String name, Block block) {
         return Registry.register(Registries.BLOCK, new Identifier(LovelyHeads.ID, name), block);
     }

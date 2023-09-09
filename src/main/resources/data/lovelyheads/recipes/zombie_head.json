@@ -4,8 +4,8 @@
     "item": "lovelyheads:head_base_item"
   },
   "extraInput": {
-    "item": "lovelyheads:head_scheme_item"
+    "item": "minecraft:rotten_flesh"
   },
-  "decrementExtraInput": false,
-  "outputItem": "minecraft:player_head"
+  "decrementExtraInput": true,
+  "outputItem": "minecraft:zombie_head"
 }
