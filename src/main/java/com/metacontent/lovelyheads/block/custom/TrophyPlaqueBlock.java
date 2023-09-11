@@ -45,7 +45,10 @@ public class TrophyPlaqueBlock extends BlockWithEntity {
             if (entity instanceof TrophyPlaqueBlockEntity trophyPlaqueBlockEntity) {
                 if (trophyPlaqueBlockEntity.getStack(0).isEmpty()) {
                     ItemStack stack = player.getStackInHand(hand);
-                    if (stack.getItem() == Items.PLAYER_HEAD) {
+                    if (stack.isOf(Items.PLAYER_HEAD) || stack.isOf(Items.SKELETON_SKULL)
+                            || stack.isOf(Items.ZOMBIE_HEAD) || stack.isOf(Items.WITHER_SKELETON_SKULL)
+                            || stack.isOf(Items.PIGLIN_HEAD) || stack.isOf(Items.CREEPER_HEAD)
+                            || stack.isOf(Items.DRAGON_HEAD)) {
                         ItemStack trophy = stack.copy();
                         stack.decrement(1);
                         trophy.setCount(1);

@@ -4,6 +4,7 @@
   "block.lovelyheads.polymorph_head_block": "Polymorph Head",
   "block.lovelyheads.item_transmitter_block": "Item Transmitter",
   "block.lovelyheads.head_constructor_block": "Head Constructor",
+  "block.lovelyheads.trophy_plaque_block": "Trophy Plaque",
   "block.lovelyheads.item_transmitter_block.transmission_info": "Transmission via: %s",
   "block.lovelyheads.item_transmitter_block.transmission_message": "Received items from a transmitter",
   "block.lovelyheads.player_teleport_block.teleport_message": "Teleported to %s",
@@ -11,5 +12,6 @@
   "item.lovelyheads.player_teleport_block.ready_tooltip": "Ready",
   "item.lovelyheads.player_teleport_block.cooldown_tooltip": "Cooldown: %s",
   "item.lovelyheads.polymorph_head_block.tooltip": "When placed, takes a placer's head shape",
-  "item.lovelyheads.head_scheme_item": "Head Scheme"
+  "item.lovelyheads.head_scheme_item": "Head Scheme",
+  "item.lovelyheads.head_base_item": "Head Base"
 }

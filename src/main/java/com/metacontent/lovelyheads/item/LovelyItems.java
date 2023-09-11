@@ -115,7 +115,7 @@ public class LovelyItems {
             content.addAfter(Items.PLAYER_HEAD, POLYMORPH_HEAD_ITEM);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(content -> {
-            content.add(HEAD_BASE_ITEM);
+            content.addAfter(Items.PHANTOM_MEMBRANE, HEAD_BASE_ITEM);
         });
     }
 }
