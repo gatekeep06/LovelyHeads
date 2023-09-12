@@ -13,5 +13,7 @@
   "item.lovelyheads.player_teleport_block.cooldown_tooltip": "Cooldown: %s",
   "item.lovelyheads.polymorph_head_block.tooltip": "When placed, takes a placer's head shape",
   "item.lovelyheads.head_scheme_item": "Head Scheme",
-  "item.lovelyheads.head_base_item": "Head Base"
+  "item.lovelyheads.head_base_item": "Head Base",
+  "enchantment.lovelyheads.beheading": "Beheading",
+  "effect.lovelyheads.beheading_mark": "Beheading Mark"
 }
