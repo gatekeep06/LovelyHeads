@@ -9,6 +9,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -19,7 +20,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemTransmitterBlock extends BlockWithEntity {
-    public static final int TRANSMISSION_TIME = 100;
+    public static final int TRANSMISSION_TIME = 3000;
 
     public ItemTransmitterBlock(Settings settings) {
         super(settings);
@@ -36,13 +37,23 @@ public class ItemTransmitterBlock extends BlockWithEntity {
         if (world.isClient()) {
             return ActionResult.SUCCESS;
         }
+        else if (player.getStackInHand(hand).getItem() == Items.ECHO_SHARD) {
+            if (world.getBlockEntity(pos) instanceof ItemTransmitterBlockEntity entity) {
+                if (!entity.isEmpty()) {
+                    entity.timer += 3000;
+                    if (!player.isCreative()) {
+                        player.getStackInHand(hand).decrement(1);
+                    }
+                }
+            }
+        }
         else {
             NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
             if (screenHandlerFactory != null) {
                 player.openHandledScreen(screenHandlerFactory);
             }
-            return ActionResult.CONSUME;
         }
+        return ActionResult.CONSUME;
     }
 
     @Override

@@ -13,9 +13,16 @@ public class BeheadingEnchantment extends Enchantment {
         super(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
     }
 
+
+
     @Override
     public int getMinPower(int level) {
-        return 1;
+        return 15 + (level - 1) * 9;
+    }
+
+    @Override
+    public int getMaxPower(int level) {
+        return super.getMinPower(level) + 50;
     }
 
     @Override

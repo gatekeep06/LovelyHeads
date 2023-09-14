@@ -1,6 +1,7 @@
-package com.metacontent.lovelyheads.command.custom;
+package com.metacontent.lovelyheads.command;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandRegistryAccess;
@@ -17,18 +18,28 @@ public class GetPlayerHeadCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register(CommandManager.literal("getHead")
                 .requires(source -> source.hasPermissionLevel(2))
-                .then(CommandManager.argument("player", EntityArgumentType.player())
-                        .executes(GetPlayerHeadCommand::run)));
+                .then(CommandManager.argument("player", StringArgumentType.string())
+                        .executes(context -> run(context.getSource().getPlayer(), context.getArgument("player", String.class)))));
     }
 
-    private static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        PlayerEntity player = context.getSource().getPlayer();
-        if (!context.getSource().getWorld().isClient && player != null) {
+    /*private static int run(PlayerEntity user, PlayerEntity player) {
+        if (user != null) {
             ItemStack head = Items.PLAYER_HEAD.getDefaultStack();
             NbtCompound nbt = new NbtCompound();
-            nbt.putString("SkullOwner", context.getArgument("player", EntitySelector.class).getPlayer(context.getSource()).getEntityName());
+            nbt.putString("SkullOwner", player.getEntityName());
             head.setNbt(nbt);
-            player.giveItemStack(head);
+            user.giveItemStack(head);
+        }
+        return 1;
+    }*/
+
+    private static int run(PlayerEntity user, String string) {
+        if (user != null) {
+            ItemStack head = Items.PLAYER_HEAD.getDefaultStack();
+            NbtCompound nbt = new NbtCompound();
+            nbt.putString("SkullOwner", string);
+            head.setNbt(nbt);
+            user.giveItemStack(head);
         }
         return 1;
     }

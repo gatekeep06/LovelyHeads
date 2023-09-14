@@ -3,6 +3,7 @@ package com.metacontent.lovelyheads.block.entity;
 import com.metacontent.lovelyheads.block.custom.ItemTransmitterBlock;
 import com.metacontent.lovelyheads.screen.ItemTransmitterScreenHandler;
 import com.metacontent.lovelyheads.util.ImplementedInventory;
+import com.metacontent.lovelyheads.util.InteractingWithPedestal;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,7 +26,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public class ItemTransmitterBlockEntity extends BlockEntity implements ImplementedInventory, NamedScreenHandlerFactory {
+public class ItemTransmitterBlockEntity extends BlockEntity implements ImplementedInventory, NamedScreenHandlerFactory, InteractingWithPedestal {
     public int timer = 0;
     public ItemStack headItemStack = ItemStack.EMPTY;
     private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
@@ -52,7 +53,7 @@ public class ItemTransmitterBlockEntity extends BlockEntity implements Implement
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, ItemTransmitterBlockEntity be) {
-        if (be.timer < ItemTransmitterBlock.TRANSMISSION_TIME && !be.isEmpty() && !world.isClient()) {
+        if (!be.isEmpty() && !world.isClient()) {
             be.timer++;
             if (be.timer >= ItemTransmitterBlock.TRANSMISSION_TIME) {
                 be.transmitItems();
@@ -67,7 +68,7 @@ public class ItemTransmitterBlockEntity extends BlockEntity implements Implement
     }
 
     public void transmitItems() {
-        this.headItemStack = getPedestalEntity() != null ? getPedestalEntity().getHeadItemStack() : ItemStack.EMPTY;
+        checkHeadItemStack();
         if (this.headItemStack.hasNbt() && world instanceof ServerWorld serverWorld) {
             String owner = this.headItemStack.getNbt().getString("SkullOwner");
             Predicate<? super ServerPlayerEntity> predicate =
@@ -87,21 +88,6 @@ public class ItemTransmitterBlockEntity extends BlockEntity implements Implement
         }
     }
 
-    @Nullable
-    private HeadPedestalBlockEntity getPedestalEntity() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                for (int k = 0; k < 3; k++) {
-                    BlockPos blockPos = new BlockPos(pos.getX() + i - 1, pos.getY() + j - 1, pos.getZ() + k - 1);
-                    if (world.getBlockEntity(blockPos) instanceof HeadPedestalBlockEntity headPedestalBlockEntity) {
-                        return headPedestalBlockEntity;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
     @Override
     public DefaultedList<ItemStack> getItems() {
         return inventory;
@@ -115,8 +101,13 @@ public class ItemTransmitterBlockEntity extends BlockEntity implements Implement
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        this.headItemStack = getPedestalEntity() != null ? getPedestalEntity().getHeadItemStack() : ItemStack.EMPTY;
+        checkHeadItemStack();
         return new ItemTransmitterScreenHandler(syncId, playerInventory, this, this.headItemStack, propertyDelegate);
+    }
+
+    private void checkHeadItemStack() {
+        HeadPedestalBlockEntity entity = getPedestalEntity(this.world, this.pos);
+        this.headItemStack = entity != null ? entity.getHeadItemStack() : ItemStack.EMPTY;
     }
 
     @Override

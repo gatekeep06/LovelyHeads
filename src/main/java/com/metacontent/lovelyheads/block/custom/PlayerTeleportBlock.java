@@ -3,6 +3,7 @@ package com.metacontent.lovelyheads.block.custom;
 import com.metacontent.lovelyheads.block.entity.HeadPedestalBlockEntity;
 import com.metacontent.lovelyheads.block.entity.LovelyBlockEntities;
 import com.metacontent.lovelyheads.block.entity.PlayerTeleportBlockEntity;
+import com.metacontent.lovelyheads.util.InteractingWithPedestal;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -15,6 +16,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -32,7 +34,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public class PlayerTeleportBlock extends BlockWithEntity {
+public class PlayerTeleportBlock extends BlockWithEntity implements InteractingWithPedestal {
     public static final int CD = 6000;
     public static final BooleanProperty IS_READY = BooleanProperty.of("is_ready");
 
@@ -50,7 +52,7 @@ public class PlayerTeleportBlock extends BlockWithEntity {
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         if (!world.isClient()) {
             if (!state.get(IS_READY) && itemStack.hasNbt()) {
-                ((PlayerTeleportBlockEntity) world.getBlockEntity(pos)).timer = itemStack.getNbt().getInt("timer");
+                ((PlayerTeleportBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos))).timer = itemStack.getNbt().getInt("timer");
             }
         }
     }
@@ -98,29 +100,29 @@ public class PlayerTeleportBlock extends BlockWithEntity {
             return ActionResult.SUCCESS;
         }
         else if (state.get(IS_READY)) {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    for (int k = 0; k < 3; k++) {
-                        BlockPos blockPos = new BlockPos(pos.getX() + i - 1, pos.getY() + j - 1, pos.getZ() + k - 1);
-                        if (world.getBlockEntity(blockPos) instanceof HeadPedestalBlockEntity headPedestalBlockEntity) {
-                            if (teleportToSkullOwner((ServerWorld) world, headPedestalBlockEntity, player)) {
-                                world.setBlockState(pos, state.with(IS_READY, false));
-                            }
-                            return ActionResult.CONSUME;
-                        }
-                    }
+            HeadPedestalBlockEntity entity = getPedestalEntity(world, pos);
+            if (entity != null) {
+                if (teleportToSkullOwner((ServerWorld) world, entity, player)) {
+                    world.setBlockState(pos, state.with(IS_READY, false));
+                }
+            }
+        }
+        else if (player.getStackInHand(hand).getItem() == Items.ECHO_SHARD) {
+            if (world.getBlockEntity(pos) instanceof PlayerTeleportBlockEntity entity) {
+                entity.timer += 3000;
+                if (!player.isCreative()) {
+                    player.getStackInHand(hand).decrement(1);
                 }
             }
         }
         else {
-            int duration = 6000 - ((PlayerTeleportBlockEntity) world.getBlockEntity(pos)).timer;
+            int duration = 6000 - ((PlayerTeleportBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos))).timer;
             int minutes = duration / 1200;
             int seconds = duration / 20 - minutes * 60;
             player.sendMessage(Text.translatable("block.lovelyheads.player_teleport_block.cooldown_message",
                     minutes + ":" + (seconds / 10) + (seconds % 10)));
-            return ActionResult.CONSUME;
         }
-        return ActionResult.PASS;
+        return ActionResult.CONSUME;
     }
 
     private static boolean teleportToSkullOwner(ServerWorld serverWorld, @NotNull HeadPedestalBlockEntity blockEntity, PlayerEntity player) {

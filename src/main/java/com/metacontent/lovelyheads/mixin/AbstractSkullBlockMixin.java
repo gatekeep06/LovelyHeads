@@ -2,6 +2,7 @@ package com.metacontent.lovelyheads.mixin;
 
 import net.minecraft.block.AbstractSkullBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.SkullBlock;
 import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,10 +17,13 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(value = SkullBlock.class)
-public abstract class SkullBlockMixin extends AbstractSkullBlock {
-    public SkullBlockMixin(SkullBlock.SkullType type, Settings settings) {
-        super(type, settings);
+import java.util.Objects;
+
+@Mixin(value = AbstractSkullBlock.class)
+public abstract class AbstractSkullBlockMixin extends BlockWithEntity {
+
+    protected AbstractSkullBlockMixin(Settings settings) {
+        super(settings);
     }
 
     @Override
@@ -36,14 +40,15 @@ public abstract class SkullBlockMixin extends AbstractSkullBlock {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
+        if (((SkullBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos))).getOwner() != null) {
+            if (world.isClient) {
+                return ActionResult.SUCCESS;
+            }
+            else {
+                player.sendMessage(Text.literal(((SkullBlockEntity) world.getBlockEntity(pos)).getOwner().getName()));
+                return ActionResult.CONSUME;
+            }
         }
-        else if (((SkullBlockEntity) world.getBlockEntity(pos)).getOwner() != null) {
-            player.sendMessage(Text.literal(((SkullBlockEntity) world.getBlockEntity(pos)).getOwner().getName()));
-            return ActionResult.CONSUME;
-        }
-
         return super.onUse(state, world, pos, player, hand, hit);
     }
 }

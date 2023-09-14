@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "lovelyheads:player_teleport_block",
+    "lovelyheads:item_transmitter_block",
+    "lovelyheads:head_pedestal_block"
+  ]
+}

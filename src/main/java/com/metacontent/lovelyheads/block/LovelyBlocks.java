@@ -17,7 +17,7 @@ public class LovelyBlocks {
             new HeadPedestalBlock(FabricBlockSettings.copyOf(Blocks.STONE).nonOpaque()));
 
     public static final Block POLYMORPH_HEAD_BLOCK = registerBlock("polymorph_head_block",
-            new PolymorphHeadBlock(FabricBlockSettings.copyOf(Blocks.SKELETON_SKULL)));
+            new PolymorphHeadBlock(FabricBlockSettings.copyOf(Blocks.SKELETON_SKULL).nonOpaque()));
 
     public static final Block ITEM_TRANSMITTER_BLOCK = registerBlock("item_transmitter_block",
             new ItemTransmitterBlock(FabricBlockSettings.copyOf(Blocks.STONE)));

@@ -25,7 +25,7 @@ import java.util.List;
 
 public class LovelyItems {
     public static final Item POLYMORPH_HEAD_ITEM = registerItem("polymorph_head_block",
-            new BlockItem(LovelyBlocks.POLYMORPH_HEAD_BLOCK, new FabricItemSettings()) {
+            new BlockItem(LovelyBlocks.POLYMORPH_HEAD_BLOCK, new FabricItemSettings().rarity(Rarity.UNCOMMON)) {
                 @Override
                 public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
                     tooltip.add(Text.translatable("item.lovelyheads.polymorph_head_block.tooltip"));
@@ -71,7 +71,7 @@ public class LovelyItems {
             new BlockItem(LovelyBlocks.HEAD_PEDESTAL_BLOCK, new FabricItemSettings()));
 
     public static final Item ITEM_TRANSMITTER_BLOCK = registerItem("item_transmitter_block",
-            new BlockItem(LovelyBlocks.ITEM_TRANSMITTER_BLOCK, new FabricItemSettings()));
+            new BlockItem(LovelyBlocks.ITEM_TRANSMITTER_BLOCK, new FabricItemSettings().rarity(Rarity.RARE)));
 
     public static final Item HEAD_CONSTRUCTOR_BLOCK = registerItem("head_constructor_block",
             new BlockItem(LovelyBlocks.HEAD_CONSTRUCTOR_BLOCK, new FabricItemSettings()));
