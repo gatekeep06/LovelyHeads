@@ -11,8 +11,12 @@ import com.metacontent.lovelyheads.status_effect.BeheadingMarkStatusEffect;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTables;
+import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -26,6 +30,8 @@ public class LovelyHeads implements ModInitializer {
 
     public static Enchantment BEHEADING_ENCHANTMENT = new BeheadingEnchantment();
     public static StatusEffect BEHEADING_MARK = new BeheadingMarkStatusEffect();
+
+    public static final Identifier ANCIENT_CITY_CHEST_LOOT_TABLE_ID = LootTables.ANCIENT_CITY_CHEST;
 
     public static final GameRules.Key<GameRules.BooleanRule> SHOULD_MOBS_DROP_HEADS =
             GameRuleRegistry.register("shouldMobsDropHeads", GameRules.Category.MOBS, GameRuleFactory.createBooleanRule(true));
@@ -46,5 +52,12 @@ public class LovelyHeads implements ModInitializer {
 
         Registry.register(Registries.RECIPE_SERIALIZER, HeadConstructorRecipe.Serializer.ID, HeadConstructorRecipe.Serializer.INSTANCE);
         Registry.register(Registries.RECIPE_TYPE, new Identifier(ID, HeadConstructorRecipe.Type.ID), HeadConstructorRecipe.Type.INSTANCE);
+
+        LootTableEvents.MODIFY.register(((resourceManager, lootManager, id, tableBuilder, source) -> {
+            if (source.isBuiltin() && ANCIENT_CITY_CHEST_LOOT_TABLE_ID.equals(id)) {
+                LootPool.Builder poolBuilder = LootPool.builder().with(ItemEntry.builder(LovelyItems.POLYMORPH_HEAD_ITEM));
+                tableBuilder.pool(poolBuilder);
+            }
+        }));
     }
 }
