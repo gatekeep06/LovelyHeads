@@ -1,19 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "DCD",
-    "CNC",
-    "DCD"
+    "CRC",
+    "TNT",
+    "CCC"
   ],
   "key": {
-    "D": {
-      "item": "minecraft:diamond"
+    "T": {
+      "item": "minecraft:totem_of_undying"
     },
     "C": {
       "item": "minecraft:chiseled_stone_bricks"
     },
     "N": {
       "item": "minecraft:netherite_ingot"
+    },
+    "R": {
+      "item": "minecraft:recovery_compass"
     }
   },
   "result": {
