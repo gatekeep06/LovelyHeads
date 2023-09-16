@@ -130,17 +130,22 @@ public class HeadConstructorScreenHandler extends ScreenHandler {
         if (slot.hasStack()) {
             ItemStack originalStack = slot.getStack();
             newStack = originalStack.copy();
-            if (invSlot < this.inventory.size()) {
+            if (invSlot < this.inventory.size() - 1) {
                 if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.insertItem(originalStack, 0, this.inventory.size(), false)) {
+            }
+            else if (invSlot == 2) {
+                return ItemStack.EMPTY;
+            }
+            else if (!this.insertItem(originalStack, 0, this.inventory.size(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if (originalStack.isEmpty()) {
                 slot.setStack(ItemStack.EMPTY);
-            } else {
+            }
+            else {
                 slot.markDirty();
             }
         }
