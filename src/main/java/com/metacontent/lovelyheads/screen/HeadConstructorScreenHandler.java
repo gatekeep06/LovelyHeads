@@ -126,8 +126,8 @@ public class HeadConstructorScreenHandler extends ScreenHandler {
     @Override
     public ItemStack quickMove(PlayerEntity player, int invSlot) {
         ItemStack newStack = ItemStack.EMPTY;
-        /*Slot slot = this.slots.get(invSlot);
-        if (slot != null && slot.hasStack()) {
+        Slot slot = this.slots.get(invSlot);
+        if (slot.hasStack()) {
             ItemStack originalStack = slot.getStack();
             newStack = originalStack.copy();
             if (invSlot < this.inventory.size()) {
@@ -143,7 +143,7 @@ public class HeadConstructorScreenHandler extends ScreenHandler {
             } else {
                 slot.markDirty();
             }
-        }*/
+        }
 
         return newStack;
     }

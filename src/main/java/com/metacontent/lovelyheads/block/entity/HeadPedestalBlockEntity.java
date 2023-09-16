@@ -30,7 +30,7 @@ public class HeadPedestalBlockEntity extends BlockEntity {
     public ItemStack getHeadItemStack() {
         BlockPos skullPos = this.pos.add(0, 1, 0);
         ItemStack itemStack = ItemStack.EMPTY;
-        if (this.world.getBlockState(skullPos).getBlock() == Blocks.PLAYER_HEAD) {
+        if (this.world.getBlockState(skullPos).getBlock() == Blocks.PLAYER_HEAD && ((SkullBlockEntity) this.world.getBlockEntity(skullPos)).getOwner() != null) {
             itemStack = Items.PLAYER_HEAD.getDefaultStack();
             NbtCompound nbt = new NbtCompound();
             nbt.putString("SkullOwner", ((SkullBlockEntity) this.world.getBlockEntity(skullPos)).getOwner().getName());
