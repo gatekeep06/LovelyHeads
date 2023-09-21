@@ -1,5 +1,6 @@
 # LovelyHeads
 modrinth: https://modrinth.com/mod/lovelyheads
+
 LovelyHeads is a mod that fixes the head stack picking with a middle mouse click (you will now get an exact copy of the head, not the standard one), makes heads more useful by adding a few blocks for late game stages that interact with them and adds a little more opportunity to decorate your home with trophies from slain enemies.
 
 List of the additions:
