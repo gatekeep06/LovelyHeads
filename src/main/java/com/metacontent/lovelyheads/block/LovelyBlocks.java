@@ -26,7 +26,10 @@ public class LovelyBlocks {
             new HeadConstructorBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD)));
 
     public static final Block TROPHY_PLAQUE_BLOCK = registerBlock("trophy_plaque_block",
-            new TrophyPlaqueBlock(FabricBlockSettings.copy(Blocks.OAK_WOOD).nonOpaque()));
+            new TrophyPlaqueBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).nonOpaque()));
+
+    public static final Block MOB_LOCATOR_BLOCK = registerBlock("mob_locator_block",
+            new MobLocatorBlock(FabricBlockSettings.copyOf(Blocks.STONE)));
 
     private static Block registerBlock(String name, Block block) {
         return Registry.register(Registries.BLOCK, new Identifier(LovelyHeads.ID, name), block);

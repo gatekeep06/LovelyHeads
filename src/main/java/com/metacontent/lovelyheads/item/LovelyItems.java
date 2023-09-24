@@ -76,6 +76,9 @@ public class LovelyItems {
     public static final Item HEAD_CONSTRUCTOR_BLOCK = registerItem("head_constructor_block",
             new BlockItem(LovelyBlocks.HEAD_CONSTRUCTOR_BLOCK, new FabricItemSettings()));
 
+    public static final Item MOB_LOCATOR_BLOCK = registerItem("mob_locator_block",
+            new BlockItem(LovelyBlocks.MOB_LOCATOR_BLOCK, new FabricItemSettings()));
+
     public static final Item HEAD_SCHEME_ITEM = registerItem("head_scheme_item",
             new Item(new FabricItemSettings().maxCount(1)) {
                 @Override
@@ -109,7 +112,8 @@ public class LovelyItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(content -> {
             content.addAfter(Items.LODESTONE, PLAYER_TELEPORT_BLOCK);
             content.addAfter(PLAYER_TELEPORT_BLOCK, ITEM_TRANSMITTER_BLOCK);
-            content.addAfter(ITEM_TRANSMITTER_BLOCK,HEAD_PEDESTAL_BLOCK);
+            content.addAfter(PLAYER_TELEPORT_BLOCK, MOB_LOCATOR_BLOCK);
+            content.addAfter(MOB_LOCATOR_BLOCK,HEAD_PEDESTAL_BLOCK);
             content.addAfter(HEAD_PEDESTAL_BLOCK, HEAD_CONSTRUCTOR_BLOCK);
             content.addAfter(HEAD_CONSTRUCTOR_BLOCK, TROPHY_PLAQUE_BLOCK);
             content.addAfter(Items.PLAYER_HEAD, POLYMORPH_HEAD_ITEM);

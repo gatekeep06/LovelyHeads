@@ -36,7 +36,7 @@ public class BeheadingEnchantment extends Enchantment {
             for (int roll = 0; roll < level; roll++) {
                 int i = user.getRandom().nextBetween(1, 100);
                 if (i <= 5) {
-                    livingTarget.addStatusEffect(new StatusEffectInstance(LovelyHeads.BEHEADING_MARK, 1200));
+                    livingTarget.addStatusEffect(new StatusEffectInstance(LovelyHeads.BEHEADING_MARK, 100));
                 }
             }
         }

@@ -139,6 +139,9 @@ public class PlayerTeleportBlock extends BlockWithEntity implements InteractingW
                 player.sendMessage(Text.translatable("block.lovelyheads.player_teleport_block.teleport_message", owner));
                 return true;
             }
+            else {
+                player.sendMessage(Text.translatable("block.lovelyheads.player_teleport_block.other_world_message", owner));
+            }
         }
         return false;
     }

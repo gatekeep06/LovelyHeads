@@ -6,10 +6,12 @@ import com.metacontent.lovelyheads.util.ImplementedInventory;
 import com.metacontent.lovelyheads.util.InteractingWithPedestal;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
@@ -107,7 +109,14 @@ public class ItemTransmitterBlockEntity extends BlockEntity implements Implement
 
     private void checkHeadItemStack() {
         HeadPedestalBlockEntity entity = getPedestalEntity(this.world, this.pos);
-        this.headItemStack = entity != null ? entity.getHeadItemStack() : ItemStack.EMPTY;
+        ItemStack itemStack = ItemStack.EMPTY;
+        if (entity != null) {
+            itemStack = Items.PLAYER_HEAD.getDefaultStack();
+            NbtCompound nbt = new NbtCompound();
+            nbt.putString("SkullOwner", entity.getSkullOwner());
+            itemStack.setNbt(nbt);
+        }
+        this.headItemStack = itemStack;
     }
 
     @Override
