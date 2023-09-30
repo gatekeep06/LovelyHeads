@@ -31,6 +31,9 @@ public class LovelyBlocks {
     public static final Block MOB_LOCATOR_BLOCK = registerBlock("mob_locator_block",
             new MobLocatorBlock(FabricBlockSettings.copyOf(Blocks.STONE)));
 
+    public static final Block STACKED_SKULLS_BLOCK = registerBlock("stacked_skulls_block",
+            new StackedSkullsBlock(FabricBlockSettings.copyOf(Blocks.BONE_BLOCK)));
+
     private static Block registerBlock(String name, Block block) {
         return Registry.register(Registries.BLOCK, new Identifier(LovelyHeads.ID, name), block);
     }

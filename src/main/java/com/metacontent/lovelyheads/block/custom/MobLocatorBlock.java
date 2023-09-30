@@ -49,7 +49,7 @@ public class MobLocatorBlock extends Block implements InteractingWithPedestal {
                     Entity target = null;
                     if (clazz == PlayerEntity.class) {
                         String owner = entity.getSkullOwner();
-                        if (owner != null /*&& !owner.equals(player.getName().getString())*/) {
+                        if (owner != null && !owner.equals(player.getName().getString())) {
                             Predicate<? super ServerPlayerEntity> predicate =
                                     (serverPlayer) -> Objects.equals(serverPlayer.getName().getString(), owner);
 

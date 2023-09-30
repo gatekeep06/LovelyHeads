@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CRC",
+    "ONO",
+    "CCC"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:compass"
+    },
+    "C": {
+      "item": "minecraft:chiseled_stone_bricks"
+    },
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "R": {
+      "item": "minecraft:recovery_compass"
+    }
+  },
+  "result": {
+    "item": "lovelyheads:mob_locator_block"
+  }
+}

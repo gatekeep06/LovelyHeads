@@ -12,6 +12,7 @@
   "block.lovelyheads.player_teleport_block.other_world_message": "%s is not in this world right now.",
   "block.lovelyheads.mob_locator_block": "Mob Locator",
   "block.lovelyheads.mob_locator_block.locate_message": "Name: %s \nCoordinates: %s \nDistance: %s",
+  "block.lovelyheads.stacked_skulls_block": "Stacked Skulls",
   "item.lovelyheads.player_teleport_block.ready_tooltip": "Ready",
   "item.lovelyheads.player_teleport_block.cooldown_tooltip": "Cooldown: %s",
   "item.lovelyheads.polymorph_head_block.tooltip": "When placed, takes a placer's head shape",

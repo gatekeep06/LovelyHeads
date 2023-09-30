@@ -79,6 +79,9 @@ public class LovelyItems {
     public static final Item MOB_LOCATOR_BLOCK = registerItem("mob_locator_block",
             new BlockItem(LovelyBlocks.MOB_LOCATOR_BLOCK, new FabricItemSettings()));
 
+    public static final Item STACKED_SKULLS_BLOCK = registerItem("stacked_skulls_block",
+            new BlockItem(LovelyBlocks.STACKED_SKULLS_BLOCK, new FabricItemSettings()));
+
     public static final Item HEAD_SCHEME_ITEM = registerItem("head_scheme_item",
             new Item(new FabricItemSettings().maxCount(1)) {
                 @Override
@@ -112,7 +115,7 @@ public class LovelyItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(content -> {
             content.addAfter(Items.LODESTONE, PLAYER_TELEPORT_BLOCK);
             content.addAfter(PLAYER_TELEPORT_BLOCK, ITEM_TRANSMITTER_BLOCK);
-            content.addAfter(PLAYER_TELEPORT_BLOCK, MOB_LOCATOR_BLOCK);
+            content.addAfter(ITEM_TRANSMITTER_BLOCK, MOB_LOCATOR_BLOCK);
             content.addAfter(MOB_LOCATOR_BLOCK,HEAD_PEDESTAL_BLOCK);
             content.addAfter(HEAD_PEDESTAL_BLOCK, HEAD_CONSTRUCTOR_BLOCK);
             content.addAfter(HEAD_CONSTRUCTOR_BLOCK, TROPHY_PLAQUE_BLOCK);
@@ -120,6 +123,9 @@ public class LovelyItems {
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(content -> {
             content.addAfter(Items.PHANTOM_MEMBRANE, HEAD_BASE_ITEM);
+        });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(content -> {
+            content.add(STACKED_SKULLS_BLOCK);
         });
     }
 }

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "lovelyheads:block/stacked_skulls_block_down",
+    "east": "lovelyheads:block/stacked_skulls_block_right",
+    "north": "lovelyheads:block/stacked_skulls_block_front",
+    "particle": "lovelyheads:block/stacked_skulls_block_front",
+    "south": "lovelyheads:block/stacked_skulls_block_back",
+    "up": "lovelyheads:block/stacked_skulls_block_up",
+    "west": "lovelyheads:block/stacked_skulls_block_left"
+  }
+}
