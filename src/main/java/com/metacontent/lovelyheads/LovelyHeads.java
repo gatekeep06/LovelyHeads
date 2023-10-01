@@ -4,6 +4,7 @@ import com.metacontent.lovelyheads.block.LovelyBlocks;
 import com.metacontent.lovelyheads.block.entity.LovelyBlockEntities;
 import com.metacontent.lovelyheads.command.LovelyCommands;
 import com.metacontent.lovelyheads.enchantment.BeheadingEnchantment;
+import com.metacontent.lovelyheads.enchantment.LovelyEnchantments;
 import com.metacontent.lovelyheads.item.LovelyItems;
 import com.metacontent.lovelyheads.recipe.HeadConstructorRecipe;
 import com.metacontent.lovelyheads.screen.LovelyScreens;
@@ -28,7 +29,6 @@ public class LovelyHeads implements ModInitializer {
     public static final String ID = "lovelyheads";
     public static final Logger LOGGER = LoggerFactory.getLogger(ID);
 
-    public static Enchantment BEHEADING_ENCHANTMENT = new BeheadingEnchantment();
     public static StatusEffect BEHEADING_MARK = new BeheadingMarkStatusEffect();
 
     public static final Identifier ANCIENT_CITY_CHEST_LOOT_TABLE_ID = LootTables.ANCIENT_CITY_CHEST;
@@ -45,10 +45,10 @@ public class LovelyHeads implements ModInitializer {
         LovelyBlocks.registerLovelyBlocks();
         LovelyScreens.registerLovelyScreens();
         LovelyCommands.registerLovelyCommands();
+        LovelyEnchantments.registerLovelyEnchantments();
         LovelyBlockEntities.registerLovelyBlockEntities();
 
         Registry.register(Registries.STATUS_EFFECT, new Identifier(ID, "beheading_mark"), BEHEADING_MARK);
-        Registry.register(Registries.ENCHANTMENT, new Identifier(ID, "beheading"), BEHEADING_ENCHANTMENT);
 
         Registry.register(Registries.RECIPE_SERIALIZER, HeadConstructorRecipe.Serializer.ID, HeadConstructorRecipe.Serializer.INSTANCE);
         Registry.register(Registries.RECIPE_TYPE, new Identifier(ID, HeadConstructorRecipe.Type.ID), HeadConstructorRecipe.Type.INSTANCE);

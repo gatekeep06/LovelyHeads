@@ -80,12 +80,14 @@ public class ItemTransmitterBlockEntity extends BlockEntity implements Implement
 
             if (!list.isEmpty()) {
                 ServerPlayerEntity targetEntity = list.get(0);
-                for (ItemStack itemStack : this.inventory) {
-                    targetEntity.getInventory().offerOrDrop(itemStack);
-                    inventory.set(inventory.indexOf(itemStack), ItemStack.EMPTY);
+                if (InteractingWithPedestal.isTargetCloaked(targetEntity)) {
+                    for (ItemStack itemStack : this.inventory) {
+                        targetEntity.getInventory().offerOrDrop(itemStack);
+                        inventory.set(inventory.indexOf(itemStack), ItemStack.EMPTY);
+                    }
+                    targetEntity.sendMessage(Text.translatable("block.lovelyheads.item_transmitter_block.transmission_message"));
+                    markDirty();
                 }
-                targetEntity.sendMessage(Text.translatable("block.lovelyheads.item_transmitter_block.transmission_message"));
-                markDirty();
             }
         }
     }

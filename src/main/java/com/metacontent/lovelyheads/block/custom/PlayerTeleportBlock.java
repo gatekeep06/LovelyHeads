@@ -3,6 +3,7 @@ package com.metacontent.lovelyheads.block.custom;
 import com.metacontent.lovelyheads.block.entity.HeadPedestalBlockEntity;
 import com.metacontent.lovelyheads.block.entity.LovelyBlockEntities;
 import com.metacontent.lovelyheads.block.entity.PlayerTeleportBlockEntity;
+import com.metacontent.lovelyheads.enchantment.LovelyEnchantments;
 import com.metacontent.lovelyheads.util.InteractingWithPedestal;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -11,9 +12,11 @@ import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -30,6 +33,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -135,9 +139,11 @@ public class PlayerTeleportBlock extends BlockWithEntity implements InteractingW
 
             if (!list.isEmpty()) {
                 ServerPlayerEntity targetEntity = list.get(0);
-                player.teleport(targetEntity.getX(), targetEntity.getY(), targetEntity.getZ());
-                player.sendMessage(Text.translatable("block.lovelyheads.player_teleport_block.teleport_message", owner));
-                return true;
+                if (!InteractingWithPedestal.isTargetCloaked(targetEntity)) {
+                    player.teleport(targetEntity.getX(), targetEntity.getY(), targetEntity.getZ());
+                    player.sendMessage(Text.translatable("block.lovelyheads.player_teleport_block.teleport_message", owner));
+                    return true;
+                }
             }
             else {
                 player.sendMessage(Text.translatable("block.lovelyheads.player_teleport_block.other_world_message", owner));

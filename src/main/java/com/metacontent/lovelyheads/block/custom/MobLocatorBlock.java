@@ -56,7 +56,9 @@ public class MobLocatorBlock extends Block implements InteractingWithPedestal {
                             List<ServerPlayerEntity> list = serverWorld.getPlayers(predicate, 1);
 
                             if (!list.isEmpty()) {
-                                target = list.get(0);
+                                if (!InteractingWithPedestal.isTargetCloaked(list.get(0))) {
+                                    target = list.get(0);
+                                }
                             }
                         }
                     }

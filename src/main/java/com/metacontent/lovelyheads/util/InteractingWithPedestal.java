@@ -1,9 +1,16 @@
 package com.metacontent.lovelyheads.util;
 
 import com.metacontent.lovelyheads.block.entity.HeadPedestalBlockEntity;
+import com.metacontent.lovelyheads.enchantment.LovelyEnchantments;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Iterator;
 
 public interface InteractingWithPedestal {
     @Nullable
@@ -19,5 +26,19 @@ public interface InteractingWithPedestal {
             }
         }
         return null;
+    }
+
+    static boolean isTargetCloaked(LivingEntity targetEntity) {
+        Iterator<ItemStack> armor = targetEntity.getArmorItems().iterator();
+        while (armor.hasNext()) {
+            if (armor.next().getItem() instanceof ArmorItem armorItem) {
+                if (armorItem.getType() == ArmorItem.Type.HELMET && armor.next().hasNbt()) {
+                    if (EnchantmentHelper.getIdFromNbt(armor.next().getNbt()) == EnchantmentHelper.getEnchantmentId(LovelyEnchantments.CLOAKING_ENCHANTMENT)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }
