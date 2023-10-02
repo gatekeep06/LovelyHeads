@@ -18,11 +18,13 @@ public class GetPlayerHeadCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register(CommandManager.literal("getHead")
                 .requires(source -> source.hasPermissionLevel(2))
-                .then(CommandManager.argument("player", StringArgumentType.string())
-                        .executes(context -> run(context.getSource().getPlayer(), context.getArgument("player", String.class)))));
+                .then(CommandManager.argument("name", StringArgumentType.string())
+                        .executes(context -> run(context.getSource().getPlayer(), context.getArgument("name", String.class))))
+                .then(CommandManager.argument("player", EntityArgumentType.player())
+                        .executes(context -> run(context.getSource().getPlayer(), context.getArgument("player", EntitySelector.class).getPlayer(context.getSource())))));
     }
 
-    /*private static int run(PlayerEntity user, PlayerEntity player) {
+    private static int run(PlayerEntity user, PlayerEntity player) {
         if (user != null) {
             ItemStack head = Items.PLAYER_HEAD.getDefaultStack();
             NbtCompound nbt = new NbtCompound();
@@ -31,7 +33,7 @@ public class GetPlayerHeadCommand {
             user.giveItemStack(head);
         }
         return 1;
-    }*/
+    }
 
     private static int run(PlayerEntity user, String string) {
         if (user != null) {
