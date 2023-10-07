@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "PLP",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:crimson_planks"
+    },
+    "L": {
+      "item": "minecraft:crimson_stem"
+    }
+  },
+  "result": {
+    "item": "lovelyheads:crimson_trophy_plaque_block",
+    "count": 2
+  }
+}

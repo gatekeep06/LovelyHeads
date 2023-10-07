@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "PLP",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:acacia_planks"
+    },
+    "L": {
+      "item": "minecraft:acacia_log"
+    }
+  },
+  "result": {
+    "item": "lovelyheads:acacia_trophy_plaque_block",
+    "count": 2
+  }
+}

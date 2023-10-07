@@ -32,7 +32,7 @@ public class TrophyPlaqueBlockEntityRenderer implements BlockEntityRenderer<Trop
         if (entity.getWorld() != null) {
             ItemStack stack = entity.getItems().get(0);
             BlockState state = entity.getWorld().getBlockState(entity.getPos());
-            if (state.getBlock() == LovelyBlocks.TROPHY_PLAQUE_BLOCK) {
+            if (state.getBlock() instanceof TrophyPlaqueBlock) {
                 renderStack(stack, state, entity, matrices, light, overlay, vertexConsumers);
                 renderText(stack, state, entity, matrices, vertexConsumers, light);
             }

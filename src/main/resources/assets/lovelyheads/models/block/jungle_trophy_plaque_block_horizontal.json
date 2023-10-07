@@ -1,0 +1,8 @@
+{
+  "parent": "lovelyheads:block/template_trophy_plaque_block_horizontal",
+  "textures": {
+    "0": "minecraft:block/jungle_log",
+    "1": "minecraft:block/jungle_planks",
+    "particle": "minecraft:block/jungle_log"
+  }
+}

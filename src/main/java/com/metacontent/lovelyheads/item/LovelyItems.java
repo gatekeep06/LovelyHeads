@@ -3,7 +3,6 @@ package com.metacontent.lovelyheads.item;
 import com.metacontent.lovelyheads.LovelyHeads;
 import com.metacontent.lovelyheads.block.LovelyBlocks;
 import com.metacontent.lovelyheads.block.custom.PlayerTeleportBlock;
-import com.mojang.authlib.GameProfile;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.item.TooltipContext;
@@ -103,8 +102,35 @@ public class LovelyItems {
     public static final Item HEAD_BASE_ITEM = registerItem("head_base_item",
             new Item(new FabricItemSettings()));
 
-    public static final Item TROPHY_PLAQUE_BLOCK = registerItem("trophy_plaque_block",
-            new BlockItem(LovelyBlocks.TROPHY_PLAQUE_BLOCK, new FabricItemSettings()));
+    public static final Item ACACIA_TROPHY_PLAQUE_BLOCK = registerItem("acacia_trophy_plaque_block",
+            new BlockItem(LovelyBlocks.ACACIA_TROPHY_PLAQUE_BLOCK, new FabricItemSettings()));
+
+    public static final Item OAK_TROPHY_PLAQUE_BLOCK = registerItem("oak_trophy_plaque_block",
+            new BlockItem(LovelyBlocks.OAK_TROPHY_PLAQUE_BLOCK, new FabricItemSettings()));
+
+    public static final Item SPRUCE_TROPHY_PLAQUE_BLOCK = registerItem("spruce_trophy_plaque_block",
+            new BlockItem(LovelyBlocks.SPRUCE_TROPHY_PLAQUE_BLOCK, new FabricItemSettings()));
+
+    public static final Item BIRCH_TROPHY_PLAQUE_BLOCK = registerItem("birch_trophy_plaque_block",
+            new BlockItem(LovelyBlocks.BIRCH_TROPHY_PLAQUE_BLOCK, new FabricItemSettings()));
+
+    public static final Item JUNGLE_TROPHY_PLAQUE_BLOCK = registerItem("jungle_trophy_plaque_block",
+            new BlockItem(LovelyBlocks.JUNGLE_TROPHY_PLAQUE_BLOCK, new FabricItemSettings()));
+
+    public static final Item DARK_OAK_TROPHY_PLAQUE_BLOCK = registerItem("dark_oak_trophy_plaque_block",
+            new BlockItem(LovelyBlocks.DARK_OAK_TROPHY_PLAQUE_BLOCK, new FabricItemSettings()));
+
+    public static final Item MANGROVE_TROPHY_PLAQUE_BLOCK = registerItem("mangrove_trophy_plaque_block",
+            new BlockItem(LovelyBlocks.MANGROVE_TROPHY_PLAQUE_BLOCK, new FabricItemSettings()));
+
+    public static final Item CHERRY_TROPHY_PLAQUE_BLOCK = registerItem("cherry_trophy_plaque_block",
+            new BlockItem(LovelyBlocks.CHERRY_TROPHY_PLAQUE_BLOCK, new FabricItemSettings()));
+
+    public static final Item CRIMSON_TROPHY_PLAQUE_BLOCK = registerItem("crimson_trophy_plaque_block",
+            new BlockItem(LovelyBlocks.CRIMSON_TROPHY_PLAQUE_BLOCK, new FabricItemSettings()));
+
+    public static final Item WARPED_TROPHY_PLAQUE_BLOCK = registerItem("warped_trophy_plaque_block",
+            new BlockItem(LovelyBlocks.WARPED_TROPHY_PLAQUE_BLOCK, new FabricItemSettings()));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(LovelyHeads.ID, name), item);
@@ -118,7 +144,16 @@ public class LovelyItems {
             content.addAfter(ITEM_TRANSMITTER_BLOCK, MOB_LOCATOR_BLOCK);
             content.addAfter(MOB_LOCATOR_BLOCK,HEAD_PEDESTAL_BLOCK);
             content.addAfter(HEAD_PEDESTAL_BLOCK, HEAD_CONSTRUCTOR_BLOCK);
-            content.addAfter(HEAD_CONSTRUCTOR_BLOCK, TROPHY_PLAQUE_BLOCK);
+            content.addAfter(HEAD_CONSTRUCTOR_BLOCK, ACACIA_TROPHY_PLAQUE_BLOCK);
+            content.addAfter(ACACIA_TROPHY_PLAQUE_BLOCK, OAK_TROPHY_PLAQUE_BLOCK);
+            content.addAfter(OAK_TROPHY_PLAQUE_BLOCK, SPRUCE_TROPHY_PLAQUE_BLOCK);
+            content.addAfter(SPRUCE_TROPHY_PLAQUE_BLOCK, BIRCH_TROPHY_PLAQUE_BLOCK);
+            content.addAfter(BIRCH_TROPHY_PLAQUE_BLOCK, JUNGLE_TROPHY_PLAQUE_BLOCK);
+            content.addAfter(JUNGLE_TROPHY_PLAQUE_BLOCK, DARK_OAK_TROPHY_PLAQUE_BLOCK);
+            content.addAfter(DARK_OAK_TROPHY_PLAQUE_BLOCK, MANGROVE_TROPHY_PLAQUE_BLOCK);
+            content.addAfter(MANGROVE_TROPHY_PLAQUE_BLOCK, CHERRY_TROPHY_PLAQUE_BLOCK);
+            content.addAfter(CHERRY_TROPHY_PLAQUE_BLOCK, CRIMSON_TROPHY_PLAQUE_BLOCK);
+            content.addAfter(CRIMSON_TROPHY_PLAQUE_BLOCK, WARPED_TROPHY_PLAQUE_BLOCK);
             content.addAfter(Items.PLAYER_HEAD, POLYMORPH_HEAD_ITEM);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(content -> {

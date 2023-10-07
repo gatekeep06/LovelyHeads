@@ -25,7 +25,34 @@ public class LovelyBlocks {
     public static final Block HEAD_CONSTRUCTOR_BLOCK = registerBlock("head_constructor_block",
             new HeadConstructorBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD)));
 
-    public static final Block TROPHY_PLAQUE_BLOCK = registerBlock("trophy_plaque_block",
+    public static final Block ACACIA_TROPHY_PLAQUE_BLOCK = registerBlock("acacia_trophy_plaque_block",
+            new TrophyPlaqueBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).nonOpaque()));
+
+    public static final Block OAK_TROPHY_PLAQUE_BLOCK = registerBlock("oak_trophy_plaque_block",
+            new TrophyPlaqueBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).nonOpaque()));
+
+    public static final Block SPRUCE_TROPHY_PLAQUE_BLOCK = registerBlock("spruce_trophy_plaque_block",
+            new TrophyPlaqueBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).nonOpaque()));
+
+    public static final Block BIRCH_TROPHY_PLAQUE_BLOCK = registerBlock("birch_trophy_plaque_block",
+            new TrophyPlaqueBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).nonOpaque()));
+
+    public static final Block JUNGLE_TROPHY_PLAQUE_BLOCK = registerBlock("jungle_trophy_plaque_block",
+            new TrophyPlaqueBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).nonOpaque()));
+
+    public static final Block DARK_OAK_TROPHY_PLAQUE_BLOCK = registerBlock("dark_oak_trophy_plaque_block",
+            new TrophyPlaqueBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).nonOpaque()));
+
+    public static final Block MANGROVE_TROPHY_PLAQUE_BLOCK = registerBlock("mangrove_trophy_plaque_block",
+            new TrophyPlaqueBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).nonOpaque()));
+
+    public static final Block CHERRY_TROPHY_PLAQUE_BLOCK = registerBlock("cherry_trophy_plaque_block",
+            new TrophyPlaqueBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).nonOpaque()));
+
+    public static final Block CRIMSON_TROPHY_PLAQUE_BLOCK = registerBlock("crimson_trophy_plaque_block",
+            new TrophyPlaqueBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).nonOpaque()));
+
+    public static final Block WARPED_TROPHY_PLAQUE_BLOCK = registerBlock("warped_trophy_plaque_block",
             new TrophyPlaqueBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).nonOpaque()));
 
     public static final Block MOB_LOCATOR_BLOCK = registerBlock("mob_locator_block",

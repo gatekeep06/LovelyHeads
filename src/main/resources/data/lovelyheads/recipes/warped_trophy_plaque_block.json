@@ -7,14 +7,14 @@
   ],
   "key": {
     "P": {
-      "tag": "minecraft:planks"
+      "item": "minecraft:warped_planks"
     },
     "L": {
-      "tag": "minecraft:logs"
+      "item": "minecraft:warped_stem"
     }
   },
   "result": {
-    "item": "lovelyheads:trophy_plaque_block",
+    "item": "lovelyheads:warped_trophy_plaque_block",
     "count": 2
   }
 }

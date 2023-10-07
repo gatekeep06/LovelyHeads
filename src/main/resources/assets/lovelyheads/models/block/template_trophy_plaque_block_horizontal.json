@@ -1,10 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"textures": {
-		"0": "lovelyheads:block/trophy_plaque_block_back",
-		"1": "lovelyheads:block/trophy_plaque_block_front",
-		"particle": "lovelyheads:block/trophy_plaque_block_back"
-	},
 	"elements": [
 		{
 			"from": [1, 0, 5],

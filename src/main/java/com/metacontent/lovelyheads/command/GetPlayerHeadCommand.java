@@ -2,8 +2,6 @@ package com.metacontent.lovelyheads.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.command.argument.EntityArgumentType;
@@ -21,25 +19,14 @@ public class GetPlayerHeadCommand {
                 .then(CommandManager.argument("name", StringArgumentType.string())
                         .executes(context -> run(context.getSource().getPlayer(), context.getArgument("name", String.class))))
                 .then(CommandManager.argument("player", EntityArgumentType.player())
-                        .executes(context -> run(context.getSource().getPlayer(), context.getArgument("player", EntitySelector.class).getPlayer(context.getSource())))));
+                        .executes(context -> run(context.getSource().getPlayer(), context.getArgument("player", EntitySelector.class).getPlayer(context.getSource()).getEntityName()))));
     }
 
-    private static int run(PlayerEntity user, PlayerEntity player) {
+    private static int run(PlayerEntity user, String player) {
         if (user != null) {
             ItemStack head = Items.PLAYER_HEAD.getDefaultStack();
             NbtCompound nbt = new NbtCompound();
-            nbt.putString("SkullOwner", player.getEntityName());
-            head.setNbt(nbt);
-            user.giveItemStack(head);
-        }
-        return 1;
-    }
-
-    private static int run(PlayerEntity user, String string) {
-        if (user != null) {
-            ItemStack head = Items.PLAYER_HEAD.getDefaultStack();
-            NbtCompound nbt = new NbtCompound();
-            nbt.putString("SkullOwner", string);
+            nbt.putString("SkullOwner", player);
             head.setNbt(nbt);
             user.giveItemStack(head);
         }

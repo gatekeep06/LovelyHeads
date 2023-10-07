@@ -2,6 +2,15 @@
   "replace": false,
   "values": [
     "lovelyheads:head_constructor_block",
-    "lovelyheads:trophy_plaque_block"
+    "lovelyheads:acacia_trophy_plaque_block",
+    "lovelyheads:oak_trophy_plaque_block",
+    "lovelyheads:spruce_trophy_plaque_block",
+    "lovelyheads:birch_trophy_plaque_block",
+    "lovelyheads:jungle_trophy_plaque_block",
+    "lovelyheads:dark_oak_trophy_plaque_block",
+    "lovelyheads:mangrove_trophy_plaque_block",
+    "lovelyheads:cherry_trophy_plaque_block",
+    "lovelyheads:crimson_trophy_plaque_block",
+    "lovelyheads:warped_trophy_plaque_block"
   ]
 }

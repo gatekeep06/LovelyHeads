@@ -31,7 +31,18 @@ public class LovelyBlockEntities {
 
     public static final BlockEntityType<TrophyPlaqueBlockEntity> TROPHY_PLAQUE_BLOCK_ENTITY = Registry.register(
             Registries.BLOCK_ENTITY_TYPE, new Identifier(LovelyHeads.ID, "trophy_plaque_block_entity"),
-            FabricBlockEntityTypeBuilder.create(TrophyPlaqueBlockEntity::new, LovelyBlocks.TROPHY_PLAQUE_BLOCK).build()
+            FabricBlockEntityTypeBuilder.create(TrophyPlaqueBlockEntity::new,
+                    LovelyBlocks.ACACIA_TROPHY_PLAQUE_BLOCK,
+                    LovelyBlocks.OAK_TROPHY_PLAQUE_BLOCK,
+                    LovelyBlocks.SPRUCE_TROPHY_PLAQUE_BLOCK,
+                    LovelyBlocks.BIRCH_TROPHY_PLAQUE_BLOCK,
+                    LovelyBlocks.JUNGLE_TROPHY_PLAQUE_BLOCK,
+                    LovelyBlocks.DARK_OAK_TROPHY_PLAQUE_BLOCK,
+                    LovelyBlocks.MANGROVE_TROPHY_PLAQUE_BLOCK,
+                    LovelyBlocks.CHERRY_TROPHY_PLAQUE_BLOCK,
+                    LovelyBlocks.CRIMSON_TROPHY_PLAQUE_BLOCK,
+                    LovelyBlocks.WARPED_TROPHY_PLAQUE_BLOCK
+            ).build()
     );
 
     public static void registerLovelyBlockEntities() {

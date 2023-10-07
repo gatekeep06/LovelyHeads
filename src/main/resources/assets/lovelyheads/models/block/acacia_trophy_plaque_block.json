@@ -1,0 +1,8 @@
+{
+  "parent": "lovelyheads:block/template_trophy_plaque_block",
+  "textures": {
+    "0": "minecraft:block/acacia_log",
+    "1": "minecraft:block/acacia_planks",
+    "particle": "minecraft:block/acacia_log"
+  }
+}

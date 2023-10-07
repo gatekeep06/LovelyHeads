@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lovelyheads:trophy_plaque_block"
+          "name": "lovelyheads:oak_trophy_plaque_block"
         }
       ],
       "conditions": [

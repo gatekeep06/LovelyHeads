@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "PLP",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:mangrove_planks"
+    },
+    "L": {
+      "item": "minecraft:mangrove_log"
+    }
+  },
+  "result": {
+    "item": "lovelyheads:mangrove_trophy_plaque_block",
+    "count": 2
+  }
+}
