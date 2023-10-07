@@ -14,6 +14,7 @@
   "block.lovelyheads.cherry_trophy_plaque_block": "Cherry Trophy Plaque",
   "block.lovelyheads.crimson_trophy_plaque_block": "Crimson Trophy Plaque",
   "block.lovelyheads.warped_trophy_plaque_block": "Warped Trophy Plaque",
+  "block.lovelyheads.golden_trophy_plaque_block": "Golden Trophy Plaque",
   "block.lovelyheads.item_transmitter_block.transmission_info": "Transmission via: %s",
   "block.lovelyheads.item_transmitter_block.transmission_message": "Received items from a transmitter",
   "block.lovelyheads.player_teleport_block.teleport_message": "Teleported to %s",

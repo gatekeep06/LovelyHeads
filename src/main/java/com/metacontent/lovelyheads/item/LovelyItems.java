@@ -132,6 +132,9 @@ public class LovelyItems {
     public static final Item WARPED_TROPHY_PLAQUE_BLOCK = registerItem("warped_trophy_plaque_block",
             new BlockItem(LovelyBlocks.WARPED_TROPHY_PLAQUE_BLOCK, new FabricItemSettings()));
 
+    public static final Item GOLDEN_TROPHY_PLAQUE_BLOCK = registerItem("golden_trophy_plaque_block",
+            new BlockItem(LovelyBlocks.GOLDEN_TROPHY_PLAQUE_BLOCK, new FabricItemSettings()));
+
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(LovelyHeads.ID, name), item);
     }
@@ -154,6 +157,7 @@ public class LovelyItems {
             content.addAfter(MANGROVE_TROPHY_PLAQUE_BLOCK, CHERRY_TROPHY_PLAQUE_BLOCK);
             content.addAfter(CHERRY_TROPHY_PLAQUE_BLOCK, CRIMSON_TROPHY_PLAQUE_BLOCK);
             content.addAfter(CRIMSON_TROPHY_PLAQUE_BLOCK, WARPED_TROPHY_PLAQUE_BLOCK);
+            content.addAfter(WARPED_TROPHY_PLAQUE_BLOCK, GOLDEN_TROPHY_PLAQUE_BLOCK);
             content.addAfter(Items.PLAYER_HEAD, POLYMORPH_HEAD_ITEM);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(content -> {

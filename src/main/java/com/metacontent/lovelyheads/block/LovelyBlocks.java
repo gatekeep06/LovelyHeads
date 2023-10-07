@@ -4,10 +4,13 @@ import com.metacontent.lovelyheads.LovelyHeads;
 import com.metacontent.lovelyheads.block.custom.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+
+import java.util.function.ToIntFunction;
 
 public class LovelyBlocks {
     public static final Block PLAYER_TELEPORT_BLOCK = registerBlock("player_teleport_block",
@@ -54,6 +57,14 @@ public class LovelyBlocks {
 
     public static final Block WARPED_TROPHY_PLAQUE_BLOCK = registerBlock("warped_trophy_plaque_block",
             new TrophyPlaqueBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).nonOpaque()));
+
+    public static final Block GOLDEN_TROPHY_PLAQUE_BLOCK = registerBlock("golden_trophy_plaque_block",
+            new TrophyPlaqueBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).nonOpaque().luminance(value -> {
+                if (value.get(TrophyPlaqueBlock.HAS_HEAD)) {
+                    return 4;
+                }
+                return 0;
+            })));
 
     public static final Block MOB_LOCATOR_BLOCK = registerBlock("mob_locator_block",
             new MobLocatorBlock(FabricBlockSettings.copyOf(Blocks.STONE)));

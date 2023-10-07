@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    "WGW",
+    " S "
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:red_wool"
+    },
+    "G": {
+      "item": "minecraft:gold_block"
+    },
+    "S": {
+      "item": "glow_ink_sac"
+    }
+  },
+  "result": {
+    "item": "lovelyheads:golden_trophy_plaque_block",
+    "count": 2
+  }
+}

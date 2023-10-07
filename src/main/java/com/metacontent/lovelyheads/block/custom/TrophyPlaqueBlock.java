@@ -8,6 +8,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
@@ -23,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class TrophyPlaqueBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = Properties.FACING;
+    public static final BooleanProperty HAS_HEAD = BooleanProperty.of("has_head");
     private static final VoxelShape NORTH;
     private static final VoxelShape EAST;
     private static final VoxelShape SOUTH;
@@ -32,7 +34,7 @@ public class TrophyPlaqueBlock extends BlockWithEntity {
 
     public TrophyPlaqueBlock(Settings settings) {
         super(settings);
-        setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
+        setDefaultState(getDefaultState().with(FACING, Direction.NORTH).with(HAS_HEAD, false));
     }
 
     @Override
@@ -49,6 +51,7 @@ public class TrophyPlaqueBlock extends BlockWithEntity {
                             || stack.isOf(Items.ZOMBIE_HEAD) || stack.isOf(Items.WITHER_SKELETON_SKULL)
                             || stack.isOf(Items.PIGLIN_HEAD) || stack.isOf(Items.CREEPER_HEAD)
                             || stack.isOf(Items.DRAGON_HEAD)) {
+                        world.setBlockState(pos, state.with(HAS_HEAD, true));
                         ItemStack trophy = stack.copy();
                         stack.decrement(1);
                         trophy.setCount(1);
@@ -66,7 +69,7 @@ public class TrophyPlaqueBlock extends BlockWithEntity {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        builder.add(FACING).add(HAS_HEAD);
     }
 
     @Nullable

@@ -41,7 +41,8 @@ public class LovelyBlockEntities {
                     LovelyBlocks.MANGROVE_TROPHY_PLAQUE_BLOCK,
                     LovelyBlocks.CHERRY_TROPHY_PLAQUE_BLOCK,
                     LovelyBlocks.CRIMSON_TROPHY_PLAQUE_BLOCK,
-                    LovelyBlocks.WARPED_TROPHY_PLAQUE_BLOCK
+                    LovelyBlocks.WARPED_TROPHY_PLAQUE_BLOCK,
+                    LovelyBlocks.GOLDEN_TROPHY_PLAQUE_BLOCK
             ).build()
     );
 

@@ -5,6 +5,7 @@
     "lovelyheads:item_transmitter_block",
     "lovelyheads:head_pedestal_block",
     "lovelyheads:mob_locator_block",
-    "lovelyheads:stacked_skulls_block"
+    "lovelyheads:stacked_skulls_block",
+    "lovelyheads:golden_trophy_plaque_block"
   ]
 }
