@@ -1,6 +1,7 @@
 package com.metacontent.lovelyheads.block.custom;
 
 import com.metacontent.lovelyheads.block.entity.HeadPedestalBlockEntity;
+import com.metacontent.lovelyheads.sound.LovelySounds;
 import com.metacontent.lovelyheads.util.InteractingWithPedestal;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -11,6 +12,7 @@ import net.minecraft.entity.mob.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -35,7 +37,7 @@ public class MobLocatorBlock extends Block implements InteractingWithPedestal {
         }
         else {
             HeadPedestalBlockEntity entity = getPedestalEntity(world, pos);
-            if (entity != null) {
+            if (entity != null && entity.getSkullType() != null) {
                 Class<? extends LivingEntity> clazz = switch (entity.getSkullType()) {
                     case SKELETON -> SkeletonEntity.class;
                     case WITHER_SKELETON -> WitherSkeletonEntity.class;
@@ -66,6 +68,7 @@ public class MobLocatorBlock extends Block implements InteractingWithPedestal {
                         target = serverWorld.getClosestEntity(clazz, TargetPredicate.DEFAULT, null, player.getBlockX(), player.getBlockY(), player.getBlockZ(), Box.of(player.getPos(), 200, 200, 200));
                     }
                     if (target != null) {
+                        world.playSound(null, pos, LovelySounds.MAGIC_EFFECT, SoundCategory.BLOCKS, 0.5F, 0.1F);
                         player.sendMessage(Text.translatable("block.lovelyheads.mob_locator_block.locate_message",
                                 target.getName().getString(),
                                 target.getBlockX() + "x " + target.getBlockY() + "y " + target.getBlockZ() + "z",

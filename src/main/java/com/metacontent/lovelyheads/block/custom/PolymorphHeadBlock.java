@@ -34,6 +34,5 @@ public class PolymorphHeadBlock extends Block {
             }
             skullBlockEntity.setOwner(gameProfile);
         }
-
     }
 }

@@ -2,6 +2,7 @@ package com.metacontent.lovelyheads.screen;
 
 import com.metacontent.lovelyheads.item.LovelyItems;
 import com.metacontent.lovelyheads.recipe.HeadConstructorRecipe;
+import com.metacontent.lovelyheads.sound.LovelySounds;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -57,6 +58,7 @@ public class HeadConstructorScreenHandler extends ScreenHandler {
 
             @Override
             public void onTakeItem(PlayerEntity player, ItemStack stack) {
+                player.playSound(LovelySounds.HEAD_CONSTRUCTION, 1.0F, 1.0F);
                 HeadConstructorScreenHandler.this.slots.get(0).takeStack(1);
                 if (HeadConstructorScreenHandler.this.decrementExtraInput) {
                     HeadConstructorScreenHandler.this.slots.get(1).takeStack(1);

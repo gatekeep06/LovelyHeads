@@ -2,6 +2,7 @@ package com.metacontent.lovelyheads.block.custom;
 
 import com.metacontent.lovelyheads.block.entity.ItemTransmitterBlockEntity;
 import com.metacontent.lovelyheads.block.entity.LovelyBlockEntities;
+import com.metacontent.lovelyheads.sound.LovelySounds;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -11,6 +12,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
@@ -40,6 +42,7 @@ public class ItemTransmitterBlock extends BlockWithEntity {
         else if (player.getStackInHand(hand).getItem() == Items.ECHO_SHARD) {
             if (world.getBlockEntity(pos) instanceof ItemTransmitterBlockEntity entity) {
                 if (!entity.isEmpty()) {
+                    world.playSound(null, pos, LovelySounds.MAGIC_EFFECT, SoundCategory.BLOCKS, 0.1F, 2.0F);
                     entity.timer += 3000;
                     if (!player.isCreative()) {
                         player.getStackInHand(hand).decrement(1);

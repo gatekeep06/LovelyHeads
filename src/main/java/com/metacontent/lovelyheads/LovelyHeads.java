@@ -8,6 +8,7 @@ import com.metacontent.lovelyheads.enchantment.LovelyEnchantments;
 import com.metacontent.lovelyheads.item.LovelyItems;
 import com.metacontent.lovelyheads.recipe.HeadConstructorRecipe;
 import com.metacontent.lovelyheads.screen.LovelyScreens;
+import com.metacontent.lovelyheads.sound.LovelySounds;
 import com.metacontent.lovelyheads.status_effect.BeheadingMarkStatusEffect;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
@@ -42,6 +43,7 @@ public class LovelyHeads implements ModInitializer {
     @Override
     public void onInitialize() {
         LovelyItems.registerLovelyItems();
+        LovelySounds.registerLovelySounds();
         LovelyBlocks.registerLovelyBlocks();
         LovelyScreens.registerLovelyScreens();
         LovelyCommands.registerLovelyCommands();

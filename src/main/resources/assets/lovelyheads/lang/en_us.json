@@ -30,5 +30,6 @@
   "item.lovelyheads.head_base_item": "Head Base",
   "enchantment.lovelyheads.beheading": "Beheading",
   "enchantment.lovelyheads.cloaking": "Cloaking",
-  "effect.lovelyheads.beheading_mark": "Beheading Mark"
+  "effect.lovelyheads.beheading_mark": "Beheading Mark",
+  "sounds.lovelyheads.head_construction": "Head Constructed"
 }

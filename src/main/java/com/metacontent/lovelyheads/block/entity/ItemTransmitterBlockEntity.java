@@ -2,6 +2,7 @@ package com.metacontent.lovelyheads.block.entity;
 
 import com.metacontent.lovelyheads.block.custom.ItemTransmitterBlock;
 import com.metacontent.lovelyheads.screen.ItemTransmitterScreenHandler;
+import com.metacontent.lovelyheads.sound.LovelySounds;
 import com.metacontent.lovelyheads.util.ImplementedInventory;
 import com.metacontent.lovelyheads.util.InteractingWithPedestal;
 import net.minecraft.block.BlockState;
@@ -18,6 +19,7 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -80,7 +82,9 @@ public class ItemTransmitterBlockEntity extends BlockEntity implements Implement
 
             if (!list.isEmpty()) {
                 ServerPlayerEntity targetEntity = list.get(0);
-                if (InteractingWithPedestal.isTargetCloaked(targetEntity)) {
+                if (!InteractingWithPedestal.isTargetCloaked(targetEntity)) {
+                    world.playSound(null, targetEntity.getBlockPos(), LovelySounds.MAGIC_EFFECT, SoundCategory.PLAYERS, 0.5F, 1.0F);
+                    world.playSound(null, pos, LovelySounds.MAGIC_EFFECT, SoundCategory.BLOCKS, 0.5F, 1.0F);
                     for (ItemStack itemStack : this.inventory) {
                         targetEntity.getInventory().offerOrDrop(itemStack);
                         inventory.set(inventory.indexOf(itemStack), ItemStack.EMPTY);
@@ -112,7 +116,7 @@ public class ItemTransmitterBlockEntity extends BlockEntity implements Implement
     private void checkHeadItemStack() {
         HeadPedestalBlockEntity entity = getPedestalEntity(this.world, this.pos);
         ItemStack itemStack = ItemStack.EMPTY;
-        if (entity != null) {
+        if (entity != null && entity.getSkullOwner() != null) {
             itemStack = Items.PLAYER_HEAD.getDefaultStack();
             NbtCompound nbt = new NbtCompound();
             nbt.putString("SkullOwner", entity.getSkullOwner());

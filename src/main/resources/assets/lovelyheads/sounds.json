@@ -1,0 +1,20 @@
+{
+  "head_construction": {
+    "subtitle": "sounds.lovelyheads.head_construction",
+    "sounds": [
+      "lovelyheads:head_construction"
+    ]
+  },
+  "magic_effect": {
+    "subtitle": "sounds.lovelyheads.magic_effect",
+    "sounds": [
+      "lovelyheads:magic_effect"
+    ]
+  },
+  "magic_effect_2": {
+    "subtitle": "sounds.lovelyheads.magic_effect_2",
+    "sounds": [
+      "lovelyheads:magic_effect_2"
+    ]
+  }
+}

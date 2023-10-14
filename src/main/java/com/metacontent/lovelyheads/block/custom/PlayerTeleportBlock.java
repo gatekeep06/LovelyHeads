@@ -4,6 +4,7 @@ import com.metacontent.lovelyheads.block.entity.HeadPedestalBlockEntity;
 import com.metacontent.lovelyheads.block.entity.LovelyBlockEntities;
 import com.metacontent.lovelyheads.block.entity.PlayerTeleportBlockEntity;
 import com.metacontent.lovelyheads.enchantment.LovelyEnchantments;
+import com.metacontent.lovelyheads.sound.LovelySounds;
 import com.metacontent.lovelyheads.util.InteractingWithPedestal;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -22,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.text.Text;
@@ -107,12 +109,14 @@ public class PlayerTeleportBlock extends BlockWithEntity implements InteractingW
             HeadPedestalBlockEntity entity = getPedestalEntity(world, pos);
             if (entity != null) {
                 if (teleportToSkullOwner((ServerWorld) world, entity, player)) {
+                    world.playSound(player, pos, LovelySounds.MAGIC_EFFECT, SoundCategory.BLOCKS, 0.5F, 5.0F);
                     world.setBlockState(pos, state.with(IS_READY, false));
                 }
             }
         }
         else if (player.getStackInHand(hand).getItem() == Items.ECHO_SHARD) {
             if (world.getBlockEntity(pos) instanceof PlayerTeleportBlockEntity entity) {
+                world.playSound(null, pos, LovelySounds.MAGIC_EFFECT, SoundCategory.BLOCKS, 0.1F, 2.0F);
                 entity.timer += 3000;
                 if (!player.isCreative()) {
                     player.getStackInHand(hand).decrement(1);
@@ -120,6 +124,7 @@ public class PlayerTeleportBlock extends BlockWithEntity implements InteractingW
             }
         }
         else {
+            world.playSound(null, pos, LovelySounds.MAGIC_EFFECT_2, SoundCategory.BLOCKS, 0.05F, 2.0F);
             int duration = 6000 - ((PlayerTeleportBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos))).timer;
             int minutes = duration / 1200;
             int seconds = duration / 20 - minutes * 60;
@@ -131,7 +136,7 @@ public class PlayerTeleportBlock extends BlockWithEntity implements InteractingW
 
     private static boolean teleportToSkullOwner(ServerWorld serverWorld, @NotNull HeadPedestalBlockEntity blockEntity, PlayerEntity player) {
         String owner = blockEntity.getSkullOwner();
-        if (owner != null && !owner.equals(player.getName().getString())) {
+        if (owner != null /*&& !owner.equals(player.getName().getString())*/) {
             Predicate<? super ServerPlayerEntity> predicate =
                     (serverPlayer) -> Objects.equals(serverPlayer.getName().getString(), owner);
 
@@ -140,12 +145,14 @@ public class PlayerTeleportBlock extends BlockWithEntity implements InteractingW
             if (!list.isEmpty()) {
                 ServerPlayerEntity targetEntity = list.get(0);
                 if (!InteractingWithPedestal.isTargetCloaked(targetEntity)) {
+                    serverWorld.playSound(null, targetEntity.getBlockPos(), LovelySounds.MAGIC_EFFECT, SoundCategory.PLAYERS, 0.5F, 5.0F);
                     player.teleport(targetEntity.getX(), targetEntity.getY(), targetEntity.getZ());
                     player.sendMessage(Text.translatable("block.lovelyheads.player_teleport_block.teleport_message", owner));
                     return true;
                 }
             }
             else {
+                serverWorld.playSound(null, blockEntity.getPos(), LovelySounds.MAGIC_EFFECT_2, SoundCategory.BLOCKS, 0.05F, 2.0F);
                 player.sendMessage(Text.translatable("block.lovelyheads.player_teleport_block.other_world_message", owner));
             }
         }
